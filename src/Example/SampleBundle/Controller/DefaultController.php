@@ -37,32 +37,32 @@ class DefaultController extends FOSRestController
     {
 		//TODO: $id określa tablicę z której listę pobrać
         $data = [[
+			'id' => 1,
 			'name' => 'List 1',
 		],[
+			'id' => 2,
 			'name' => 'List 2',
 		]];
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
-    public function getBoardListAction($id, $list)
+    public function getListsAction($list)
     {
-		//TODO: $id określa tablicę z której listę pobrać
-		if ($list == 1) $data = [ 'name' => 'List 1' ];
-		else if ($list == 2) $data = [ 'name' => 'List 2' ];
+		if ($list == 1) $data = [ 'id' => 1, 'name' => 'List 1' ];
+		else if ($list == 2) $data = [ 'id' => 2, 'name' => 'List 2' ];
 		else $data = [];
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
-    public function getBoardListTasksAction($id, $list)
+    public function getListsTasksAction($list)
     {
-		//TODO: $id określa tablicę z której listę pobrać
 		if ($list == 1) $data = [['name' => 'Task 1'], ['name' => 'Task 2']];
 		else if ($list == 2) $data = [['name' => 'Task 1'], ['name' => 'Task 2'], ['name' => 'Task 3'], ['name' => 'Task 4']];
 		else $data = [];
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
-    public function getLoggedUserAction()
+    public function getLoggeduserAction()
     {
         $data = [
 			'name' => 'User001',
