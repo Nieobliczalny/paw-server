@@ -1,0 +1,7 @@
+example_sample:
+    resource: "@ExampleSampleBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

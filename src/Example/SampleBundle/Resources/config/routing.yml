@@ -1,0 +1,4 @@
+example_sample_homepage:
+    resource: "@ExampleSampleBundle/Controller/DefaultController.php"
+    prefix: /api/
+    type: rest
