@@ -4,6 +4,8 @@ namespace Example\SampleBundle\Controller;
 
 use Example\SampleBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DefaultController extends FOSRestController 
 {
@@ -65,10 +67,20 @@ class DefaultController extends FOSRestController
     }
     public function getLoggeduserAction()
     {
-        $data = [
-			'name' => 'User001',
-		];
-		$view = $this->view($data,200);
+		$session = new Session();
+		//$session->start();
+		$data = [];
+		$status = 200;
+		$userID = trim($session->get('UserID'));
+		if ($userID != '')
+		{
+			$data = $this->getDoctrine()->getRepository('ExampleSampleBundle:User')->find($userID);
+		}
+		else
+		{
+			$status = 404;
+		}
+		$view = $this->view($data,$status);
 		return $this->handleView($view);
     }
 	
@@ -84,6 +96,29 @@ class DefaultController extends FOSRestController
 		$em->flush();
 		
 		$view = $this->view($user,200);
+		return $this->handleView($view);
+	}
+	public function postLoginAction(Request $request)
+	{
+		$session = new Session();
+		//$session->start();
+		$user = $this->getDoctrine()->getRepository('ExampleSampleBundle:User')->findOneBy(
+			array('username' => $request->request->all()['login'], 'password' => sha1($request->request->all()['password']))
+		);
+		$status = 500;
+		
+		if (!$user)
+		{
+			$status = 403;
+			$user = [];
+		}
+		else
+		{
+			$status = 200;
+			$session->set('UserID', $user->getId());	
+		}
+		
+		$view = $this->view($user,$status);
 		return $this->handleView($view);
 	}
 	
