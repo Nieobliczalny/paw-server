@@ -2,6 +2,7 @@
 
 namespace Example\SampleBundle\Controller;
 
+use Example\SampleBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 
 class DefaultController extends FOSRestController 
@@ -70,4 +71,21 @@ class DefaultController extends FOSRestController
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
+	
+	public function getUserAction()
+	{
+		$user = new User();
+		$user->setUsername('Adam');
+		$user->setPassword(sha1('admin'));
+		$user->setEmail('avenn77@wp.pl');
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($user);
+		$em->flush();
+		
+		$view = $this->view($user,200);
+		return $this->handleView($view);
+	}
+	
+	
 }
