@@ -8,6 +8,7 @@
  */
 namespace Example\SampleBundle\Services;
 
+
 use Example\SampleBundle\DAO\BoardDAO;
 
 class BoardService

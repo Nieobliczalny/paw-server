@@ -18,7 +18,7 @@ class DefaultController extends FOSRestController
 
     public function __construct()
     {
-        $this->boardService = new BoardService();
+        $this->boardService = new BoardService($this->getDoctrine()->getManager());
     }
 
     public function getExampleAction()
@@ -55,11 +55,12 @@ class DefaultController extends FOSRestController
         $view = $this->view($board,200);
         return $this->handleView($view);
     }
-    public function getBoardAction(Request $request)
+    public function getBoardAction($id)
     {
-        //$board = $this->boardService->getBoardById($request->request->all()['id']);
+       // $board = $this->boardService->getBoardById($request->request->all()['id']);
+        $board = $this->boardService->getBoardById($id);
 
-        $view = $this->view($request->request->all()['id'],200);
+        $view = $this->view($board,200);
 		return $this->handleView($view);
     }
     public function getBoardListsAction($id)
