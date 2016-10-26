@@ -7,12 +7,20 @@ use Example\SampleBundle\Entity\Board;
 use Example\SampleBundle\Entity\CardList;
 use Example\SampleBundle\Entity\Card;
 use Example\SampleBundle\Entity\Task;
+use Example\SampleBundle\Services\BoardService;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class DefaultController extends FOSRestController 
 {
+    protected $boardService;
+
+    public function __construct()
+    {
+        $this->boardService = new BoardService();
+    }
+
     public function getExampleAction()
     {
         $data = [
@@ -47,11 +55,11 @@ class DefaultController extends FOSRestController
         $view = $this->view($board,200);
         return $this->handleView($view);
     }
-    public function getBoardAction($id)
+    public function getBoardAction(Request $request)
     {
-        $board = $this->getDoctrine()->getRepository('ExampleSampleBundle:Board')->find($id);
+        //$board = $this->boardService->getBoardById($request->request->all()['id']);
 
-        $view = $this->view($board,200);
+        $view = $this->view($request->request->all()['id'],200);
 		return $this->handleView($view);
     }
     public function getBoardListsAction($id)

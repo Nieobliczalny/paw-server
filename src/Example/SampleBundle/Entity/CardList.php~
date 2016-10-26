@@ -1,0 +1,49 @@
+<?php
+// src\Example\SampleBundle\Entity\CardList.php
+namespace Example\SampleBundle\Entity;
+
+
+use Doctrine\ORM\Mapping as ORM;
+
+ /**
+  * @ORM\Entity
+  * @ORM\Table(name="CardList")
+  */
+class CardList
+{
+	/**
+      * @ORM\Id
+      * @ORM\Column(type="integer")
+      * @ORM\GeneratedValue(strategy="AUTO")
+      */
+	protected $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Board", inversedBy="cardList")
+     * @ORM\JoinColumn(name="board_id", referencedColumnName="id")
+     */
+    private $board;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Card", mappedBy="cardList")
+     */
+    protected $cards;
+
+    /**
+     * @ORM\Column(type="boolean", length=150)
+     */
+    protected $archived;
+
+
+
+    public function __construct()
+    {
+        $this->cards = new ArrayCollection();
+    }
+
+}

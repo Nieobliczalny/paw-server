@@ -1,0 +1,57 @@
+<?php
+// src\Example\SampleBundle\Entity\Board.php
+namespace Example\SampleBundle\Entity;
+
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
+ /**
+  * @ORM\Entity
+  * @ORM\Table(name="board")
+  */
+class Board
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CardList", mappedBy="board")
+     */
+    protected $cardList;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    protected $security;
+
+    /**
+     * @ORM\Column(type="boolean", length=150)
+     */
+    protected $archived;
+
+
+
+    public function __construct()
+    {
+        $this->cardList = new ArrayCollection();
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+}
