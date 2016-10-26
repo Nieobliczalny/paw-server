@@ -3,6 +3,10 @@
 namespace Example\SampleBundle\Controller;
 
 use Example\SampleBundle\Entity\User;
+use Example\SampleBundle\Entity\Board;
+use Example\SampleBundle\Entity\CardList;
+use Example\SampleBundle\Entity\Card;
+use Example\SampleBundle\Entity\Task;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -18,22 +22,36 @@ class DefaultController extends FOSRestController
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
+    public function putBoardsAction($name)
+    {
+        $board = new Board();
+        $board->setName($name);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($board);
+        $em->flush();
+
+        $view = $this->view($board,200);
+        return $this->handleView($view);
+    }
+
     public function getBoardsAction()
     {
-        $data = [[
-			'id' => '1',
-			'name' => 'Board 1',
-		]];
-		$view = $this->view($data,200);
-		return $this->handleView($view);
+        $board = new Board();
+        $board->setName('Adam');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($board);
+        $em->flush();
+
+        $view = $this->view($board,200);
+        return $this->handleView($view);
     }
     public function getBoardAction($id)
     {
-        $data = [
-			'id' => '1',
-			'name' => 'Board 1',
-		];
-		$view = $this->view($data,200);
+        $board = $this->getDoctrine()->getRepository('ExampleSampleBundle:Board')->find($id);
+
+        $view = $this->view($board,200);
 		return $this->handleView($view);
     }
     public function getBoardListsAction($id)
@@ -98,6 +116,7 @@ class DefaultController extends FOSRestController
 		$view = $this->view($user,200);
 		return $this->handleView($view);
 	}
+
 	public function postLoginAction(Request $request)
 	{
 		$session = new Session();
