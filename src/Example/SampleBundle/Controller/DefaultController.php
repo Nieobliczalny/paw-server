@@ -30,19 +30,7 @@ class DefaultController extends FOSRestController
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
-    // public function putBoardsAction($name)
-    // {
-    //     $board = new Board();
-    //     $board->setName($name);
-
-    //     $em = $this->getDoctrine()->getManager();
-    //     $em->persist($board);
-    //     $em->flush();
-
-    //     $view = $this->view($board,200);
-    //     return $this->handleView($view);
-    // }
-
+    
 	public function deleteBoardAction($id)
     {
         $b = $this->getDoctrine()
@@ -85,6 +73,27 @@ class DefaultController extends FOSRestController
         $view = $this->view($b,200);
         return $this->handleView($view);	
     }
+
+	  public function getBoardAction($id)
+    {
+		$b = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Board')
+        ->find($id);
+        
+		$view = $this->view($b,200);
+		return $this->handleView($view);
+    }
+
+	  public function getBoardsAction()
+    {
+		$b = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Board')->findAll();
+        
+		$view = $this->view($b,200);
+		return $this->handleView($view);
+    }
+
+
 
 
     public function getBoardListsAction($id)
