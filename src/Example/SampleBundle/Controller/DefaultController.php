@@ -20,16 +20,6 @@ class DefaultController extends FOSRestController
     {
         $this->boardService = new BoardService();
     }
-
-    public function getExampleAction()
-    {
-        $data = [
-			'value1' => 'Test',
-			'value2' => '300',
-		];
-		$view = $this->view($data,200);
-		return $this->handleView($view);
-    }
     
 	public function deleteBoardAction($id)
     {
@@ -164,24 +154,92 @@ class DefaultController extends FOSRestController
 		return $this->handleView($view);
     }
 
-
-
     public function getBoardListsAction($id)
-    {
-		//TODO: $id określa tablicę z której listę pobrać       
+    {      
 
 		$l = $this->getDoctrine()
         ->getRepository('ExampleSampleBundle:CardList')->findBy(array('board' => $id ));
 		$view = $this->view($l,200);
 		return $this->handleView($view);
     }
-    
-    public function getListsTasksAction($list)
+
+
+    public function postCardAction(Request $request)
     {
-		if ($list == 1) $data = [['name' => 'Task 1'], ['name' => 'Task 2']];
-		else if ($list == 2) $data = [['name' => 'Task 1'], ['name' => 'Task 2'], ['name' => 'Task 3'], ['name' => 'Task 4']];
-		else $data = [];
-		$view = $this->view($data,200);
+        $name = $request->request->all()['name'];
+		$listId = $request->request->all()['listID'];
+		$list = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:CardList')
+        ->find($listId);
+
+		$card = new Card();
+        $card->setName($name);
+		$card->setCardList($list);
+		$card->setArchived(false);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($card);
+        $em->flush();
+
+        $view = $this->view($card,200);
+        return $this->handleView($view);
+    }
+
+    public function putCardAction($id, Request $request)
+    {
+        $name = $request->request->all()['name'];
+		$card = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Card')
+        ->find($id);
+		
+        $card->setName($name);		
+
+        $em = $this->getDoctrine()->getManager();        
+        $em->flush();
+
+        $view = $this->view($card,200);
+        return $this->handleView($view);
+    }
+
+    public function deleteCardAction($id)
+    {
+        $c = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Card')
+        ->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($c);
+        $em->flush();
+
+        $view = $this->view($c,200);
+        return $this->handleView($view);
+    }
+
+    public function getCardAction($id)
+    {
+		$c = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Card')
+        ->find($id);
+        
+		$view = $this->view($c,200);
+		return $this->handleView($view);
+    }
+
+    public function getCardsAction()
+    {
+		$c = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Card')
+        ->findAll();
+        
+		$view = $this->view($c,200);
+		return $this->handleView($view);
+    }
+    
+    public function getListsCardsAction($id)
+    {
+		$c = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Card')->findBy(array('cardList' => $id ));
+		$view = $this->view($c,200);
 		return $this->handleView($view);
     }
     public function getLoggeduserAction()

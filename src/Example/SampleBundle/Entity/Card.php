@@ -5,6 +5,7 @@ namespace Example\SampleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Example\SampleBundle\Entity\CardList;
+use Example\SampleBundle\Entity\Task;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
