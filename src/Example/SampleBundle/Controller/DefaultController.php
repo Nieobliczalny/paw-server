@@ -30,9 +30,37 @@ class DefaultController extends FOSRestController
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
-    public function putBoardsAction($name)
+    // public function putBoardsAction($name)
+    // {
+    //     $board = new Board();
+    //     $board->setName($name);
+
+    //     $em = $this->getDoctrine()->getManager();
+    //     $em->persist($board);
+    //     $em->flush();
+
+    //     $view = $this->view($board,200);
+    //     return $this->handleView($view);
+    // }
+
+	public function deleteBoardAction($id)
     {
-        $board = new Board();
+        $b = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Board')
+        ->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($b);
+        $em->flush();
+
+        $view = $this->view($b,200);
+        return $this->handleView($view);
+    }
+
+    public function postBoardAction(Request $request)
+    {
+        $name = $request->request->all()['name'];
+		$board = new Board();
         $board->setName($name);
 
         $em = $this->getDoctrine()->getManager();
@@ -43,25 +71,22 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function getBoardsAction()
+	public function putBoardAction($id, Request $request)
     {
-        $board = new Board();
-        $board->setName('Adam');
+		$b = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Board')
+        ->find($id);
+        $name = $request->request->all()['name'];		
+        $b->setName($name);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($board);
+        $em = $this->getDoctrine()->getManager();       
         $em->flush();
 
-        $view = $this->view($board,200);
-        return $this->handleView($view);
+        $view = $this->view($b,200);
+        return $this->handleView($view);	
     }
-    public function getBoardAction(Request $request)
-    {
-        //$board = $this->boardService->getBoardById($request->request->all()['id']);
 
-        $view = $this->view($request->request->all()['id'],200);
-		return $this->handleView($view);
-    }
+
     public function getBoardListsAction($id)
     {
 		//TODO: $id określa tablicę z której listę pobrać

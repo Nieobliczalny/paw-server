@@ -65,6 +65,20 @@ class Board
         return $this->id;
     }
 
+     /**
+     * Set id
+     *
+     * @param string $id
+     *
+     * @return Board
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    
+        return $this;
+    }
+
     /**
      * Get name
      *
