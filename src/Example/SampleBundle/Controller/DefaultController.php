@@ -168,15 +168,11 @@ class DefaultController extends FOSRestController
 
     public function getBoardListsAction($id)
     {
-		//TODO: $id określa tablicę z której listę pobrać
-        $data = [[
-			'id' => 1,
-			'name' => 'List 1',
-		],[
-			'id' => 2,
-			'name' => 'List 2',
-		]];
-		$view = $this->view($data,200);
+		//TODO: $id określa tablicę z której listę pobrać       
+
+		$l = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:CardList')->findBy(array('board' => $id ));
+		$view = $this->view($l,200);
 		return $this->handleView($view);
     }
     
