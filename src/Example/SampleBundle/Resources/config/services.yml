@@ -1,4 +1,17 @@
 services:
-#    example_sample.example:
-#        class: Example\SampleBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+  my_board_dao:
+    class: Example\SampleBundle\DAO\BoardDAO
+    arguments:
+      entityManager: '@doctrine.orm.entity_manager'
+  my_board_service:
+    class: Example\SampleBundle\Services\BoardService
+    arguments:
+      boardDAO: '@my_board_dao'
+  my_board_rest:
+    class: Example\SampleBundle\Controller\DefaultController
+    arguments:
+      boardService: '@my_board_service'
+
+
+
+

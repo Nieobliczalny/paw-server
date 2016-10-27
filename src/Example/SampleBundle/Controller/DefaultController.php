@@ -16,9 +16,9 @@ class DefaultController extends FOSRestController
 {
     protected $boardService;
 
-    public function __construct()
+    public function __construct(BoardService $boardService)
     {
-        $this->boardService = new BoardService($this->getDoctrine()->getManager());
+        $this->boardService = $boardService;
     }
 
     public function getExampleAction()
@@ -30,23 +30,13 @@ class DefaultController extends FOSRestController
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
-    public function putBoardsAction($name)
-    {
-        $board = new Board();
-        $board->setName($name);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($board);
-        $em->flush();
-
-        $view = $this->view($board,200);
-        return $this->handleView($view);
-    }
 
     public function getBoardsAction()
     {
         $board = new Board();
         $board->setName('Adam');
+        $board->setArchived(true);
+        $board->setSecurity("Though");
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($board);
@@ -55,11 +45,12 @@ class DefaultController extends FOSRestController
         $view = $this->view($board,200);
         return $this->handleView($view);
     }
-    public function getBoardAction($id)
+    public function getBoardAction()
     {
        // $board = $this->boardService->getBoardById($request->request->all()['id']);
-        $board = $this->boardService->getBoardById($id);
-
+        //$board = $this->boardService->getBoardById($id);
+        $board = $this->boardService->getBoardById(5);
+       // $board = $this->getDoctrine()->getRepository('ExampleSampleBundle:User')->find($id);
         $view = $this->view($board,200);
 		return $this->handleView($view);
     }

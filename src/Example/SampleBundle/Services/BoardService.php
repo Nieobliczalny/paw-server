@@ -14,9 +14,9 @@ use Example\SampleBundle\DAO\BoardDAO;
 class BoardService
 {
     protected $boardDAO;
-    public function __construct()
+    public function __construct(BoardDAO $boardDAO)
     {
-        $this->boardDAO = new BoardDAO();
+        $this->boardDAO = $boardDAO;
     }
     public function getBoardById($id)
     {

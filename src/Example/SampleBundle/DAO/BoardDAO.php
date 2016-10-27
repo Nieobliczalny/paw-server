@@ -8,19 +8,21 @@
  */
 namespace Example\SampleBundle\DAO;
 
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class BoardDAO extends Controller
+use Doctrine\ORM\EntityManager;
+
+class BoardDAO
 {
-    protected $em;
-    public function __construct()
+    public $entityManager;
+
+    public function __construct(EntityManager $entityManager)
     {
-        $this->em = $this->getDoctrine()->getEntityManager();
+        $this->entityManager = $entityManager;
     }
+
     public function getBoard($id)
     {
-        $board = $this->em->getRepository('ExampleSampleBundle:Board')->find($id);
+        $board = $this->entityManager->getRepository('ExampleSampleBundle:Board')->find($id);
         return $board;
     }
 }
