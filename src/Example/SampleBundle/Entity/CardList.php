@@ -4,6 +4,9 @@ namespace Example\SampleBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Example\SampleBundle\Entity\Board;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
  /**
   * @ORM\Entity

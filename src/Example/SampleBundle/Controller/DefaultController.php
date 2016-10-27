@@ -93,6 +93,76 @@ class DefaultController extends FOSRestController
 		return $this->handleView($view);
     }
 
+	public function postListAction(Request $request)
+    {
+        $name = $request->request->all()['name'];
+		$boardId = $request->request->all()['boardID'];
+		$board = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:Board')
+        ->find($boardId);
+
+		$list = new CardList();
+        $list->setName($name);
+		$list->setBoard($board);
+		$list->setArchived(false);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($list);
+        $em->flush();
+
+        $view = $this->view($list,200);
+        return $this->handleView($view);
+    }
+
+	public function putListAction($id, Request $request)
+    {
+        $name = $request->request->all()['name'];
+		$list = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:CardList')
+        ->find($id);
+		
+        $list->setName($name);		
+
+        $em = $this->getDoctrine()->getManager();        
+        $em->flush();
+
+        $view = $this->view($list,200);
+        return $this->handleView($view);
+    }
+
+	public function deleteListAction($id)
+    {
+        $l = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:CardList')
+        ->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($l);
+        $em->flush();
+
+        $view = $this->view($l,200);
+        return $this->handleView($view);
+    }
+
+	public function getListAction($id)
+    {
+		$l = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:CardList')
+        ->find($id);
+        
+		$view = $this->view($l,200);
+		return $this->handleView($view);
+    }
+
+	public function getListsAction()
+    {
+		$l = $this->getDoctrine()
+        ->getRepository('ExampleSampleBundle:CardList')
+        ->findAll();
+        
+		$view = $this->view($l,200);
+		return $this->handleView($view);
+    }
 
 
 
@@ -109,14 +179,7 @@ class DefaultController extends FOSRestController
 		$view = $this->view($data,200);
 		return $this->handleView($view);
     }
-    public function getListsAction($list)
-    {
-		if ($list == 1) $data = [ 'id' => 1, 'name' => 'List 1' ];
-		else if ($list == 2) $data = [ 'id' => 2, 'name' => 'List 2' ];
-		else $data = [];
-		$view = $this->view($data,200);
-		return $this->handleView($view);
-    }
+    
     public function getListsTasksAction($list)
     {
 		if ($list == 1) $data = [['name' => 'Task 1'], ['name' => 'Task 2']];
