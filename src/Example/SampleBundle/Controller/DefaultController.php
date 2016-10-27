@@ -11,14 +11,21 @@ use Example\SampleBundle\Services\BoardService;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DefaultController extends FOSRestController 
 {
     protected $boardService;
 
-    public function __construct(BoardService $boardService)
+    public function __construct()
     {
-        $this->boardService = $boardService;
+		
+    }
+	
+    public function setContainer(ContainerInterface $container = null)
+    {
+        parent::setContainer($container);
+        $this->boardService = $container->get('example.sample.boardservice');
     }
 
     public function getExampleAction()

@@ -10,13 +10,16 @@ namespace Example\SampleBundle\Services;
 
 
 use Example\SampleBundle\DAO\BoardDAO;
+use Doctrine\ORM\EntityManager;
 
 class BoardService
 {
     protected $boardDAO;
-    public function __construct(BoardDAO $boardDAO)
+	protected $em;
+    public function __construct(EntityManager $entityManager)
     {
-        $this->boardDAO = $boardDAO;
+		$this->em = $entityManager;
+        $this->boardDAO = new BoardDAO($this->em);
     }
     public function getBoardById($id)
     {
