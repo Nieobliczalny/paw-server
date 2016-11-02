@@ -27,6 +27,11 @@ class BoardService
         return $this->boardDAO->getBoardById($id);
     }
 
+    public function getBoards()
+    {
+        return $this->boardDAO->getBoards();
+    }
+
     public function getBoardByName($name)
     {
         return $this->boardDAO->getBoardByName($name);

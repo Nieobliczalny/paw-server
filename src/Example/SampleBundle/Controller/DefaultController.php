@@ -43,6 +43,12 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function getBoardsAction()
+    {       
+ 		$view = $this->view($this->boardService->getBoards(),200);
+ 		return $this->handleView($view);
+    }
+
     public function getSearchBoardAction($name)
     {
         $board = $this->boardService->getBoardByName($name);
@@ -292,14 +298,7 @@ class DefaultController extends FOSRestController
 		return $this->handleView($view);
 	}
 
-    	  public function getBoardsAction()
-     {
- 		$b = $this->getDoctrine()
-         ->getRepository('ExampleSampleBundle:Board')->findAll();
-         
- 		$view = $this->view($b,200);
- 		return $this->handleView($view);
-     }
+    
 	
 	protected function checkIfPropertyExists($obj, $key)
 	{
