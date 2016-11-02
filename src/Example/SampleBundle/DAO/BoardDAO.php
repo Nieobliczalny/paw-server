@@ -26,6 +26,12 @@ class BoardDAO
         return $board;
     }
 
+    public function getBoardByName($name)
+    {
+        $board = $this->entityManager->getRepository('ExampleSampleBundle:Board')->findBy(array('name' => $name ));
+        return $board;
+    }
+
     public function deleteBoard($id)
     {
         $board = $this->getBoard($id);

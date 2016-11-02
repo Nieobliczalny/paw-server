@@ -43,6 +43,13 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function getSearchBoardAction($name)
+    {
+        $board = $this->boardService->getBoardByName($name);
+        $view = $this->view($board, 200);
+        return $this->handleView($view);
+    }
+
     public function deleteBoardAction($id)
     {
         $view = $this->view($this->boardService->deleteBoardById($id), 200);
