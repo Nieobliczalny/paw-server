@@ -170,18 +170,9 @@ class DefaultController extends FOSRestController
     }
 
 
-    public function getBoardListsCardsAction($boardID, $listID)
+    public function getListsCardsAction($listID)
     {
-        $lists =$this->boardService->getBoardById($boardID)->getCardList();
-        foreach($lists as &$list)
-        {
-            if($list->getId()== $listID)
-            {
-                $cardList = $list;
-            }
-        }
-
-        $view = $this->view($cardList->getCards(),200);
+        $view = $this->view($this->cardListService->getCardListById($listID)->getCards(),200);
         return $this->handleView($view);
     }
 
