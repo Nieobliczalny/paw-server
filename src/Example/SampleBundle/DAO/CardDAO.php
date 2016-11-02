@@ -40,8 +40,11 @@ class CardDAO
     public function delete($id)
     {
         $card = $this->getCard($id);
-        $this->entityManager->remove($card);
-        $this->entityManager->flush();
+		if ($card->getArchived())
+		{
+			$this->entityManager->remove($card);
+			$this->entityManager->flush();
+		}
         return $card;
     }
     

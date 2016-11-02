@@ -90,7 +90,8 @@ class DefaultController extends FOSRestController
 
     public function deleteListAction($id)
     {
-        $view = $this->view($this->cardListService->deleteCardListById($id),200);
+		if (!$this->cardListService->getCardListById($id)->getArchived()) $view = $this->view('List not archived', 403);
+        else $view = $this->view($this->cardListService->deleteCardListById($id),200);
         return $this->handleView($view);
     }
 
@@ -121,7 +122,8 @@ class DefaultController extends FOSRestController
 
     public function deleteCardAction($id)
     {
-        $view = $this->view($this->cardService->deleteCardById($id),200);
+		if (!$this->cardService->getCardById($id)->getArchived()) $view = $this->view('Card not archived', 403);
+        else $view = $this->view($this->cardService->deleteCardById($id),200);
         return $this->handleView($view);
     }
 

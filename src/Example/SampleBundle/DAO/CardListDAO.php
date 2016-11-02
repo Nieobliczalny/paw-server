@@ -40,8 +40,11 @@ class CardListDAO
     public function delete($id)
     {
         $cardList = $this->getCardList($id);
-        $this->entityManager->remove($cardList);
-        $this->entityManager->flush();
+		if ($cardList->getArchived())
+		{
+			$this->entityManager->remove($cardList);
+			$this->entityManager->flush();
+		}
         return $cardList;
     }
 }
