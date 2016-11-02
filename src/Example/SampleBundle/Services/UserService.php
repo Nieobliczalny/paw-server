@@ -34,5 +34,10 @@ class UserService
         return $this->userDAO->updateUser($id, $username, $email, $password);
     }
 
+    public function getUserById($id)
+    {
+        return $this->userDAO->getUserById($id);
+    }
+
 
 }

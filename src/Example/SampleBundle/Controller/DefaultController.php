@@ -212,6 +212,12 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function getUserAction($id)
+    {
+        $view = $this->view($this->userService->getUserById($id),200);
+        return $this->handleView($view);
+    }
+
     
 
 

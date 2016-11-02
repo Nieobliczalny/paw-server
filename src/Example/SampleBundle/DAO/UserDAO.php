@@ -38,5 +38,11 @@ class UserDAO
         return $user;
 
     }
+
+    public function getUserById($id)
+    {
+        $user = $this->entityManager->getRepository('ExampleSampleBundle:User')->find($id);
+        return $user;
+    }
     
 }
