@@ -202,7 +202,15 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function putUserAction()
+    public function putUserAction($id, Request $request)
+    {
+        $username = $request->request->all()['username'];        
+        $email = $request->request->all()['email'];
+        $password = sha1($request->request->all()['password']);
+
+        $view = $this->view($this->userService->updateUser($id, $username, $email, $password),200);
+        return $this->handleView($view);
+    }
 
     
 

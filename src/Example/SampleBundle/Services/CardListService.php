@@ -32,7 +32,7 @@ class CardListService
     {
         $lists = $this->boardService->getBoardLists($boardId);
         $cardList = new CardList();
-        $cardList->setName($name)->setBoard($board)->setArchived(false);
+        $cardList->setName($name)->setBoard($boardId)->setArchived(false);
         return $this->cardListDAO->addCardList($cardList);
     }
     public function updateCardListName($id, $name)

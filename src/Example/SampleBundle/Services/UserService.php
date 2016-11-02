@@ -29,9 +29,9 @@ class UserService
         return $this->userDAO->addUser($user);    
     }
 
-    public function updateUser()
+    public function updateUser($id, $username, $email, $password)
     {
-        return $this->userDAO->updateUser($id, $name);
+        return $this->userDAO->updateUser($id, $username, $email, $password);
     }
 
 

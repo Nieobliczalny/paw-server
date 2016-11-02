@@ -27,5 +27,16 @@ class UserDAO
         $this->entityManager->flush();
         return $user;
     }
+
+    public function updateUser($id, $username, $email, $password)
+    {
+        $user = getUserById($id);
+        if($username != '') $user->setUsername($username);
+        if($email != '') $user->setEmail($email);
+        if($password != '') $user->setPassword($password);
+        $this->entityManager->flush();
+        return $user;
+
+    }
     
 }
