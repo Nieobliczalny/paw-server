@@ -30,16 +30,16 @@ class CardService
     {
         return $this->cardDAO->getCard($id);
     }
-    public function addCard($cardListId, $name)
+    public function addCard($cardListId, $name,$description)
     {
         $board = $this->cardListService->getCardListById($cardListId);
         $cardList = new Card();
-        $cardList->setName($name)->setCardList($board)->setArchived(false);
+        $cardList->setName($name)->setCardList($board)->setArchived(false)->setDescription($description);
         return $this->cardDAO->addCard($cardList);
     }
-    public function updateCard($id, $name, $archived)
+    public function updateCard($id, $name, $archived,$description)
     {
-        return $this->cardDAO->updateCard($id, $name, $archived);
+        return $this->cardDAO->updateCard($id, $name, $archived,$description);
     }
     public function deleteCardById($id)
     {

@@ -28,11 +28,12 @@ class CardDAO
         $this->entityManager->flush();
         return $card;
     }
-    public function updateCard($id, $name, $archived)
+    public function updateCard($id, $name, $archived,$description)
     {
         $card = $this->getCard($id);
         if($name != '') $card->setName($name);
-        if($archived != '') $card->setArchived($archived);       
+        if($archived != '') $card->setArchived($archived); 
+        if($description != '') $card->setDescription($description);          
         $this->entityManager->flush();
         return $card;
     }

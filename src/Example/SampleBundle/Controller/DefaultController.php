@@ -103,7 +103,8 @@ class DefaultController extends FOSRestController
     {
         $name = $request->request->all()['name'];
         $cardListId = $request->request->all()['cardListID'];
-        $view = $this->view($this->cardService->addCard($cardListId, $name), 200);
+        $description = $request->request->all()['description'];
+        $view = $this->view($this->cardService->addCard($cardListId, $name, $description), 200);
         return $this->handleView($view);
     }
 
@@ -111,7 +112,8 @@ class DefaultController extends FOSRestController
     {
         $name = $request->request->all()['name'];
         $archived = $request->request->all()['archived'];
-        $view = $this->view($this->cardService->updateCard($id, $name, $archived),200);
+        $description = $request->request->all()['description'];
+        $view = $this->view($this->cardService->updateCard($id, $name, $archived, $description),200);
         return $this->handleView($view);
     }
 
