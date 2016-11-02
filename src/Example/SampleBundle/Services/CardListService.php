@@ -40,7 +40,6 @@ class CardListService
         return $this->cardListDAO->updateCardList($id, $name, $archived);
     }
 
-    }
     public function deleteCardListById($id)
     {
         return $this->cardListDAO->delete($id);
