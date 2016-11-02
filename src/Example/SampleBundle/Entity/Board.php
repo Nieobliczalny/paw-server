@@ -40,6 +40,14 @@ class Board
      */
     protected $archived;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="boards")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     */
+    protected $team;
+
+    protected $likeIdList;
+
 
 
     public function __construct()
@@ -155,5 +163,29 @@ class Board
     public function getCardList()
     {
         return $this->cardList;
+    }
+
+    /**
+     * Set team
+     *
+     * @param \Example\SampleBundle\Entity\Team $team
+     *
+     * @return Board
+     */
+    public function setTeam(\Example\SampleBundle\Entity\Team $team = null)
+    {
+        $this->team = $team;
+    
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return \Example\SampleBundle\Entity\Team
+     */
+    public function getTeam()
+    {
+        return $this->team;
     }
 }

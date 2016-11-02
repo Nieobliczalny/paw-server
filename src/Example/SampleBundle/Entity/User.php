@@ -23,6 +23,11 @@ class User
       */
     protected $username;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $login;
+
 	/**
       * @ORM\Column(type="string", length=100)
       */
@@ -32,7 +37,12 @@ class User
       * @ORM\Column(type="string", unique=true, length=150)
       */
     protected $email;
-	
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="users")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     */
+    protected $team;
 	
 
     /**
@@ -115,5 +125,53 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set team
+     *
+     * @param \Example\SampleBundle\Entity\Team $team
+     *
+     * @return User
+     */
+    public function setTeam(\Example\SampleBundle\Entity\Team $team = null)
+    {
+        $this->team = $team;
+    
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return \Example\SampleBundle\Entity\Team
+     */
+    public function getTeam()
+    {
+        return $this->team;
+    }
+
+    /**
+     * Set login
+     *
+     * @param string $login
+     *
+     * @return User
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    
+        return $this;
+    }
+
+    /**
+     * Get login
+     *
+     * @return string
+     */
+    public function getLogin()
+    {
+        return $this->login;
     }
 }

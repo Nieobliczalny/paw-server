@@ -185,6 +185,12 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function getCardTasks($cardID)
+    {
+        $view = $this->view($this->cardService->getCardById($cardID)->getTasks(),200);
+        return $this->handleView($view);
+    }
+
 
 
 

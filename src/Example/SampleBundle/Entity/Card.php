@@ -42,6 +42,12 @@ class Card
      */
     protected $archived;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $description;
+
+
 
     public function __construct()
     {
@@ -163,5 +169,29 @@ class Card
     public function getTasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Card
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
