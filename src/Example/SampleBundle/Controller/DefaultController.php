@@ -191,6 +191,18 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function postUserAction(Request $request)
+    {
+        $username = $request->request->all()['username'];
+        $login = $request->request->all()['login'];
+        $email = $request->request->all()['email'];
+        $password = sha1($request->request->all()['password']);
+        
+        $view = $this->view($this->userService->addUser($username, $login, $email, $password), 200);
+        return $this->handleView($view);
+    }
+
+    
 
 
 
@@ -290,6 +302,15 @@ class DefaultController extends FOSRestController
 		$view = $this->view($user,$status);
 		return $this->handleView($view);
 	}
+
+    	  public function getBoardsAction()
+     {
+ 		$b = $this->getDoctrine()
+         ->getRepository('ExampleSampleBundle:Board')->findAll();
+         
+ 		$view = $this->view($b,200);
+ 		return $this->handleView($view);
+    }
 	
 	
 }
