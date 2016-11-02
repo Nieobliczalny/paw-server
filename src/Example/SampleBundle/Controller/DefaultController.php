@@ -112,9 +112,10 @@ class DefaultController extends FOSRestController
 
     public function putCardAction($id, Request $request)
     {
-        $name = $request->request->all()['name'];
-        $archived = $request->request->all()['archived'];
-        $description = $request->request->all()['description'];
+        $requestData = $request->request->all();
+        $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
+        $archived = $this->checkIfPropertyExists($requestData, 'archived') ? $requestData['archived'] : '';
+        $archived = $this->checkIfPropertyExists($requestData, 'description') ? $requestData['description'] : '';
         $view = $this->view($this->cardService->updateCard($id, $name, $archived, $description),200);
         return $this->handleView($view);
     }
@@ -179,12 +180,12 @@ class DefaultController extends FOSRestController
     }
 
     public function postUserAction(Request $request)
-    {
-        $username = $request->request->all()['username'];
-        $login = $request->request->all()['login'];
-        $email = $request->request->all()['email'];
-        $password = sha1($request->request->all()['password']);
-        
+    {        
+        $requestData = $request->request->all();
+        $username = $this->checkIfPropertyExists($requestData, 'username') ? $requestData['username'] : '';
+        $email = $this->checkIfPropertyExists($requestData, 'email') ? $requestData['email'] : '';
+        $login = $this->checkIfPropertyExists($requestData, 'login') ? $requestData['login'] : '';
+        $password = $this->checkIfPropertyExists($requestData, 'password') ? sha1($requestData['password']) : '';
         $view = $this->view($this->userService->addUser($username, $login, $email, $password), 200);
         return $this->handleView($view);
     }
