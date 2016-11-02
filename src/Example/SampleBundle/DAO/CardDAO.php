@@ -20,26 +20,34 @@ class CardDAO
 
     public function getCard($id)
     {
-        $cardList = $this->entityManager->getRepository('ExampleSampleBundle:Card')->find($id);
-        return $cardList;
+        $card = $this->entityManager->getRepository('ExampleSampleBundle:Card')->find($id);
+        return $card;
     }
-    public function addCard($cardList){
-        $this->entityManager->persist($cardList);
+    public function addCard($card){
+        $this->entityManager->persist($card);
         $this->entityManager->flush();
-        return $cardList;
+        return $card;
     }
     public function updateCard($id, $name)
     {
-        $cardList = $this->getCard($id);
-        $cardList->setName($name);
+        $card = $this->getCard($id);
+        $card->setName($name);
         $this->entityManager->flush();
-        return $cardList;
+        return $card;
     }
     public function delete($id)
     {
-        $cardList = $this->getCard($id);
-        $this->entityManager->remove($cardList);
+        $card = $this->getCard($id);
+        $this->entityManager->remove($card);
         $this->entityManager->flush();
-        return $cardList;
+        return $card;
+    }
+    public function updateCardArchived($id)
+    {
+        $card = $this->getCard($id);
+        $archived = $card->getArchived();
+        $card->setArchived(!$archived);
+        $this->entityManager->flush();
+        return $card;
     }
 }

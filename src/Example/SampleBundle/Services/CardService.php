@@ -45,4 +45,8 @@ class CardService
     {
         return $this->cardDAO->delete($id);
     }
+    public function updateCardArchived($id)
+    {
+        return $this->cardDAO->updateCardArchived($id);
+    }
 }

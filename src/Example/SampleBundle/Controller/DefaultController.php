@@ -119,6 +119,12 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function putCardArchivedAction($id)
+    {
+        $view = $this->view($this->cardService->updateCardArchived($id), 200);
+        return $this->handleView($view);
+    }
+
     public function deleteCardAction($id)
     {
         $view = $this->view($this->cardService->deleteCardById($id),200);
