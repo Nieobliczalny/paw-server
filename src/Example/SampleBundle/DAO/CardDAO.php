@@ -31,7 +31,8 @@ class CardDAO
     public function updateCard($id, $name)
     {
         $card = $this->getCard($id);
-        $card->setName($name);
+        if($name != '') $card->setName($name);
+        if($archived != '') $card->setArchived($archived);       
         $this->entityManager->flush();
         return $card;
     }
@@ -42,12 +43,5 @@ class CardDAO
         $this->entityManager->flush();
         return $card;
     }
-    public function updateCardArchived($id)
-    {
-        $card = $this->getCard($id);
-        $archived = $card->getArchived();
-        $card->setArchived(!$archived);
-        $this->entityManager->flush();
-        return $card;
-    }
+    
 }

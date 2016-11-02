@@ -115,15 +115,11 @@ class DefaultController extends FOSRestController
     public function putCardAction($id, Request $request)
     {
         $name = $request->request->all()['name'];
-        $view = $this->view($this->cardService->updateCardName($id, $name),200);
+        $archived = $request->request->all()['archived'];
+        $view = $this->view($this->cardService->updateCard($id, $name, $archived),200);
         return $this->handleView($view);
     }
 
-    public function putCardArchivedAction($id)
-    {
-        $view = $this->view($this->cardService->updateCardArchived($id), 200);
-        return $this->handleView($view);
-    }
 
     public function deleteCardAction($id)
     {
@@ -270,21 +266,6 @@ class DefaultController extends FOSRestController
 		$view = $this->view($data,$status);
 		return $this->handleView($view);
     }
-	
-	public function getUserAction()
-	{
-		$user = new User();
-		$user->setUsername('Adam');
-		$user->setPassword(sha1('admin'));
-		$user->setEmail('avenn77@wp.pl');
-
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($user);
-		$em->flush();
-		
-		$view = $this->view($user,200);
-		return $this->handleView($view);
-	}
 
 	public function postLoginAction(Request $request)
 	{
