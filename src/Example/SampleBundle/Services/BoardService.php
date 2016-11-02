@@ -10,6 +10,7 @@ namespace Example\SampleBundle\Services;
 
 
 use Example\SampleBundle\DAO\BoardDAO;
+use Example\SampleBundle\Entity\Board;
 use Doctrine\ORM\EntityManager;
 
 class BoardService
@@ -24,5 +25,25 @@ class BoardService
     public function getBoardById($id)
     {
         return $this->boardDAO->getBoard($id);
+    }
+
+    public function deleteBoardById($id){
+        return $this->boardDAO->deleteBoard($id);
+    }
+
+    public function addBoard($name)
+    {
+        $board = new Board();
+        $board->setName($name);
+        $board->setArchived(false);
+        return $this->boardDAO->addBoard($board);
+    }
+    public function updateBoardName($id, $name){
+        return $this->boardDAO->updateBoardName($id, $name);
+
+    }
+    public function getBoardLists($id)
+    {
+        return $this->getBoardById($id)->getCardList();
     }
 }

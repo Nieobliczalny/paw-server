@@ -25,4 +25,24 @@ class BoardDAO
         $board = $this->entityManager->getRepository('ExampleSampleBundle:Board')->find($id);
         return $board;
     }
+
+    public function deleteBoard($id)
+    {
+        $board = $this->getBoard($id);
+        $this->entityManager->remove($board);
+        $this->entityManager->flush();
+        return $board;
+    }
+    public function addBoard($board){
+        $this->entityManager->persist($board);
+        $this->entityManager->flush();
+        return $board;
+    }
+    public function updateBoardName($id, $name)
+    {
+        $board = $this->getBoard($id);
+        $board->setName($name);
+        $this->entityManager->flush();
+        return $board;
+    }
 }

@@ -7,3 +7,12 @@ services:
     example.sample.boardservice:
         class: Example\SampleBundle\Services\BoardService
         arguments: ["@doctrine.orm.entity_manager"]
+    example.sample.cardlistservice:
+        class: Example\SampleBundle\Services\CardListService
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.boardservice"]
+    example.sample.cardservice:
+        class: Example\SampleBundle\Services\CardService
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.cardlistservice"]
+    example.sample.taskservice:
+        class: Example\SampleBundle\Services\TaskService
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.cardservice"]
