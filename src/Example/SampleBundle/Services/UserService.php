@@ -26,7 +26,13 @@ class UserService
         $user->setPassword($password); 
         
         
-        return $this->userDAO->addUser($user);
-    
+        return $this->userDAO->addUser($user);    
     }
+
+    public function updateUser()
+    {
+        return $this->userDAO->updateUser($id, $name);
+    }
+
+
 }

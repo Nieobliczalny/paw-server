@@ -202,6 +202,8 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function putUserAction()
+
     
 
 
@@ -310,7 +312,7 @@ class DefaultController extends FOSRestController
          
  		$view = $this->view($b,200);
  		return $this->handleView($view);
-    }
+     }
 	
 	
 }

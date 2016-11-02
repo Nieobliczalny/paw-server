@@ -15,9 +15,9 @@ class UserDAO
     }
     
 
-    public function getUserByUsername($username)
+    public function getUserById($id)
     {
-        $user = $this->entityManager->getRepository('ExampleSampleBundle:User')->findBy(array('username' => $username ));
+        $user = $this->entityManager->getRepository('ExampleSampleBundle:User')->find($id);
         return $user;
     }
 

@@ -34,7 +34,7 @@ class BoardDAO
 
     public function deleteBoard($id)
     {
-        $board = $this->getBoard($id);
+        $board = $this->getBoardById($id);
         $this->entityManager->remove($board);
         $this->entityManager->flush();
         return $board;
@@ -46,7 +46,7 @@ class BoardDAO
     }
     public function updateBoardName($id, $name)
     {
-        $board = $this->getBoard($id);
+        $board = $this->getBoardById($id);
         $board->setName($name);
         $this->entityManager->flush();
         return $board;
