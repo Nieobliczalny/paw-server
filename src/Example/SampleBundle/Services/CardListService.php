@@ -30,9 +30,9 @@ class CardListService
     }
     public function addCardList($boardId, $name)
     {
-        $lists = $this->boardService->getBoardLists($boardId);
+        $board = $this->boardService->getBoardById($boardId);
         $cardList = new CardList();
-        $cardList->setName($name)->setBoard($boardId)->setArchived(false);
+        $cardList->setName($name)->setBoard($board)->setArchived(false);
         return $this->cardListDAO->addCardList($cardList);
     }
     public function updateCardListName($id, $name)
