@@ -28,21 +28,15 @@ class CardListDAO
         $this->entityManager->flush();
         return $cardList;
     }
-    public function updateCardList($id, $name)
+    public function updateCardList($id, $name, $archived)
     {
         $cardList = $this->getCardList($id);
-        $cardList->setName($name);
+        if($name != '') $cardList->setName($name);
+        if($archived != '') $cardList->setArchived($archived);
         $this->entityManager->flush();
         return $cardList;
     }
-    public function updateCardListArchived($id)
-    {
-        $cardList = $this->getCardList($id);
-        $archived = $cardList->getArchived();
-        $cardList->setArchived(!$archived);
-        $this->entityManager->flush();
-        return $cardList;
-    }
+    
     public function delete($id)
     {
         $cardList = $this->getCardList($id);

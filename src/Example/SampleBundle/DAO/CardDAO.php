@@ -28,7 +28,7 @@ class CardDAO
         $this->entityManager->flush();
         return $card;
     }
-    public function updateCard($id, $name)
+    public function updateCard($id, $name, $archived)
     {
         $card = $this->getCard($id);
         if($name != '') $card->setName($name);

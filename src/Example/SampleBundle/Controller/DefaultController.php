@@ -79,16 +79,11 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function putListArchivedAction($id)
-    {
-        $view = $this->view($this->cardListService->updateCardListArchived($id), 200);
-        return $this->handleView($view);
-    }
-
     public function putListAction($id, Request $request)
     {
         $name = $request->request->all()['name'];
-        $view = $this->view($this->cardListService->updateCardListName($id, $name),200);
+        $archived = $request->request->all()['archived'];
+        $view = $this->view($this->cardListService->updateCardList($id, $name, $archived),200);
         return $this->handleView($view);
     }
 
