@@ -20,7 +20,7 @@ class BoardDAO
         $this->entityManager = $entityManager;
     }
 
-    public function getBoard($id)
+    public function getBoardById($id)
     {
         $board = $this->entityManager->getRepository('ExampleSampleBundle:Board')->find($id);
         return $board;

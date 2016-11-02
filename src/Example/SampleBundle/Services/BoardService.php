@@ -24,7 +24,7 @@ class BoardService
     }
     public function getBoardById($id)
     {
-        return $this->boardDAO->getBoard($id);
+        return $this->boardDAO->getBoardById($id);
     }
 
     public function deleteBoardById($id){

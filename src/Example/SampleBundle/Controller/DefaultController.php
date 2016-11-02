@@ -150,25 +150,26 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    /*
+
     public function getBoardListsCardsAction($boardID, $listID)
     {
-        //TODO: $id określa tablicę z której listę pobrać
-        $data = [[
-            'id' => 1,
-            'name' => 'List 1',
-        ],[
-            'id' => 2,
-            'name' => 'List 2',
-        ]];
-        $view = $this->view($data,200);
+        $lists =$this->boardService->getBoardById($boardID)->getCardList();
+        foreach($lists as &$list)
+        {
+            if($list->getId()== $listID)
+            {
+                $cardList = $list;
+            }
+        }
+
+        $view = $this->view($cardList->getCards(),200);
         return $this->handleView($view);
     }
 
 
 
 
-
+    /*
 
     public function getListsCardsAction($id)
     {
