@@ -81,8 +81,9 @@ class DefaultController extends FOSRestController
 
     public function putListAction($id, Request $request)
     {
-        $name = $request->request->all()['name'];
-        $archived = $request->request->all()['archived'];
+		$requestData = $request->request->all();
+        $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
+        $archived = $this->checkIfPropertyExists($requestData, 'archived') ? $requestData['archived'] : '';
         $view = $this->view($this->cardListService->updateCardList($id, $name, $archived),200);
         return $this->handleView($view);
     }
@@ -297,5 +298,11 @@ class DefaultController extends FOSRestController
  		return $this->handleView($view);
      }
 	
+	protected function checkIfPropertyExists($obj, $key)
+	{
+		if (is_array($obj) && array_key_exists($key, $obj)) return true;
+		if (is_object($obj) && property_exists($obj, $key)) return true;
+		return false;
+	}
 	
 }
