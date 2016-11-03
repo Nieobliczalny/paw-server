@@ -32,7 +32,7 @@ class CardList
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Card", mappedBy="cardList")
+     * @ORM\OneToMany(targetEntity="Card", mappedBy="cardList", cascade={"remove"})
      */
     protected $cards;
 

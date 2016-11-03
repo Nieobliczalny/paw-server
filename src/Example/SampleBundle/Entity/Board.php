@@ -26,7 +26,7 @@ class Board
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="CardList", mappedBy="board")
+     * @ORM\OneToMany(targetEntity="CardList", mappedBy="board", cascade={"remove"})
      */
     protected $cardList;
 
