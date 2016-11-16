@@ -46,14 +46,17 @@ class Board
      */
     protected $team;
 
-    protected $likeIdList;
+    /**
+     * @ORM\OneToOne(targetEntity="Log")
+     * @ORM\JoinColumn(name="log_id", referencedColumnName="id")
+     */
+    protected $log;
 
-
-
-    public function __construct()
-    {
-        $this->cardList = new ArrayCollection();
-    }
+    /**
+     * @ORM\OneToMany(targetEntity="Like", mappedBy="board", cascade={"remove"})
+     */
+    protected $likes;
+    
 
     public function setName($name)
     {
@@ -187,5 +190,71 @@ class Board
     public function getTeam()
     {
         return $this->team;
+    }
+
+    /**
+     * Set log
+     *
+     * @param \Example\SampleBundle\Entity\Log $log
+     *
+     * @return Board
+     */
+    public function setLog(\Example\SampleBundle\Entity\Log $log = null)
+    {
+        $this->log = $log;
+    
+        return $this;
+    }
+
+    /**
+     * Get log
+     *
+     * @return \Example\SampleBundle\Entity\Log
+     */
+    public function getLog()
+    {
+        return $this->log;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cardList = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add like
+     *
+     * @param \Example\SampleBundle\Entity\Like $like
+     *
+     * @return Board
+     */
+    public function addLike(\Example\SampleBundle\Entity\Like $like)
+    {
+        $this->likes[] = $like;
+    
+        return $this;
+    }
+
+    /**
+     * Remove like
+     *
+     * @param \Example\SampleBundle\Entity\Like $like
+     */
+    public function removeLike(\Example\SampleBundle\Entity\Like $like)
+    {
+        $this->likes->removeElement($like);
+    }
+
+    /**
+     * Get likes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 }

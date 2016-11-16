@@ -43,6 +43,15 @@ class User
      * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
      */
     protected $team;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user", cascade={"remove"})
+     */
+    protected $comments;
+    /**
+     * @ORM\OneToMany(targetEntity="Like", mappedBy="user", cascade={"remove"})
+     */
+    protected $likes;
 	
 
     /**
@@ -173,5 +182,81 @@ class User
     public function getLogin()
     {
         return $this->login;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Example\SampleBundle\Entity\Comment $comment
+     *
+     * @return User
+     */
+    public function addComment(\Example\SampleBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+    
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Example\SampleBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Example\SampleBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add like
+     *
+     * @param \Example\SampleBundle\Entity\Like $like
+     *
+     * @return User
+     */
+    public function addLike(\Example\SampleBundle\Entity\Like $like)
+    {
+        $this->likes[] = $like;
+    
+        return $this;
+    }
+
+    /**
+     * Remove like
+     *
+     * @param \Example\SampleBundle\Entity\Like $like
+     */
+    public function removeLike(\Example\SampleBundle\Entity\Like $like)
+    {
+        $this->likes->removeElement($like);
+    }
+
+    /**
+     * Get likes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 }

@@ -23,7 +23,7 @@ class DefaultController extends FOSRestController
 
     public function __construct()
     {
-
+        //$date = date('m/d/Y h:i:s a', time());
     }
 
     public function setContainer(ContainerInterface $container = null)

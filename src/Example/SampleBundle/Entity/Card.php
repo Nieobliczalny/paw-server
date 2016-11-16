@@ -47,6 +47,10 @@ class Card
      */
     protected $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="card", cascade={"remove"})
+     */
+    protected $comments;
 
 
     public function __construct()
@@ -193,5 +197,39 @@ class Card
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Example\SampleBundle\Entity\Comment $comment
+     *
+     * @return Card
+     */
+    public function addComment(\Example\SampleBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+    
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Example\SampleBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Example\SampleBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
