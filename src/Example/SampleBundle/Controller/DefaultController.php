@@ -19,6 +19,7 @@ class DefaultController extends FOSRestController
     protected $cardListService;
     protected $cardService;
     protected $taskService;
+    protected $userService;
 
 
     public function __construct()
@@ -33,6 +34,7 @@ class DefaultController extends FOSRestController
         $this->cardListService = $container->get('example.sample.cardlistservice');
         $this->cardService = $container->get('example.sample.cardservice');
         $this->taskService = $container->get('example.sample.taskservice');
+        $this->userService = $container->get('example.sample.userservice');
 
     }
 

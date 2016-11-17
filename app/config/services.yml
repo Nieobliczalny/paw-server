@@ -16,3 +16,6 @@ services:
     example.sample.taskservice:
         class: Example\SampleBundle\Services\TaskService
         arguments: ["@doctrine.orm.entity_manager", "@example.sample.cardservice"]
+    example.sample.userservice:
+        class: Example\SampleBundle\Services\UserService
+        arguments: ["@doctrine.orm.entity_manager"]
