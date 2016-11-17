@@ -298,6 +298,30 @@ class DefaultController extends FOSRestController
 		return $this->handleView($view);
 	}
 
+	public function postLogoutAction(Request $request)
+	{
+		$session = new Session();
+		//$session->start();
+		$user = $this->getDoctrine()->getRepository('ExampleSampleBundle:User')->findOneBy(
+			array('id' => intval($session->get('UserID')))
+		);
+		$status = 500;
+		
+		if (!$user)
+		{
+			$status = 403;
+			$user = [];
+		}
+		else
+		{
+			$status = 200;
+			$session->remove('UserID');	
+		}
+		
+		$view = $this->view($user,$status);
+		return $this->handleView($view);
+	}
+
     
 	
 	protected function checkIfPropertyExists($obj, $key)
