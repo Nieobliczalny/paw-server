@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
  /**
   * @ORM\Entity
-  * @ORM\Table(name="like")
+  * @ORM\Table(name="likes")
   */
 class Like
 {
