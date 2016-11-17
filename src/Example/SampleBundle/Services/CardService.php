@@ -37,9 +37,9 @@ class CardService
         $cardList->setName($name)->setCardList($board)->setArchived(false)->setDescription($description);
         return $this->cardDAO->addCard($cardList);
     }
-    public function updateCard($id, $name, $archived,$description)
+    public function updateCard($id, $name, $archived,$description, $cardList_id)
     {
-        return $this->cardDAO->updateCard($id, $name, $archived,$description);
+        return $this->cardDAO->updateCard($id, $name, $archived,$description, $cardList_id );
     }
     public function deleteCardById($id)
     {
