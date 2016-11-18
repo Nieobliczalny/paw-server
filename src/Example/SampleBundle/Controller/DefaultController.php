@@ -124,7 +124,7 @@ class DefaultController extends FOSRestController
         $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
         $archived = $this->checkIfPropertyExists($requestData, 'archived') ? $requestData['archived'] : '';
         $description = $this->checkIfPropertyExists($requestData, 'description') ? $requestData['description'] : '';
-        $cardList_id = $this->checkIfPropertyExists($requestData, 'cardList_id') ? $requestData['cardList_id'] : '';
+        $cardList_id = $this->checkIfPropertyExists($requestData, 'cardList_id') ? $this->cardListService->getCardListById($requestData['cardList_id']) : '';
 
         $view = $this->view($this->cardService->updateCard($id, $name, $archived, $description, $cardList_id),200);
         return $this->handleView($view);
