@@ -48,6 +48,11 @@ class Card
     protected $description;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $position;
+
+    /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="card", cascade={"remove"})
      */
     protected $comments;
@@ -197,6 +202,30 @@ class Card
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set position
+     *
+     * @param string $position
+     *
+     * @return Card
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**

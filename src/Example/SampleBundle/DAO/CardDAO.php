@@ -28,13 +28,24 @@ class CardDAO
         $this->entityManager->flush();
         return $card;
     }
-    public function updateCard($id, $name, $archived,$description, $cardList_id)
+    public function updateCard($id, $name, $archived,$description, $cardList_id, $position)
     {
         $card = $this->getCard($id);
         if($name != '') $card->setName($name);
         if($archived != '') $card->setArchived($archived); 
         if($description != '') $card->setDescription($description);
+        if($position != '')
+		{
+			$pos = $card->getPosition();
+			$card->getCardList()->getCards()->map(function($p) use($card){ if ($p->getPosition() >= $card->getPosition() && $p->getId() != $card->getId()) $p->setPosition($p->getPosition() - 1); return $p; });
+			$card->setPosition(0);
+		}
         if($cardList_id != '') $card->setCardList($cardList_id);
+		if ($position != '') //Divided into 2 ifs, because cardList can be updated also
+		{
+			$card->getCardList()->getCards()->map(function($p) use($position, $card){ if ($p->getPosition() >= $position && $p->getId() != $card->getId()) $p->setPosition($p->getPosition() + 1); return $p; });
+			$card->setPosition($position);
+		}
         $this->entityManager->flush();
         return $card;
     }

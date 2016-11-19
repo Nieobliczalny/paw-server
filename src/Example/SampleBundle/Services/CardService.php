@@ -34,12 +34,12 @@ class CardService
     {
         $board = $this->cardListService->getCardListById($cardListId);
         $cardList = new Card();
-        $cardList->setName($name)->setCardList($board)->setArchived(false)->setDescription($description);
+        $cardList->setName($name)->setCardList($board)->setArchived(false)->setDescription($description)->setPosition($board->getCards()->count());
         return $this->cardDAO->addCard($cardList);
     }
-    public function updateCard($id, $name, $archived,$description, $cardList_id)
+    public function updateCard($id, $name, $archived,$description, $cardList_id, $position)
     {
-        return $this->cardDAO->updateCard($id, $name, $archived,$description, $cardList_id );
+        return $this->cardDAO->updateCard($id, $name, $archived,$description, $cardList_id, $position);
     }
     public function deleteCardById($id)
     {
