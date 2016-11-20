@@ -50,10 +50,11 @@ class BoardDAO
         $this->entityManager->flush();
         return $board;
     }
-    public function updateBoardName($id, $name)
+    public function updateBoardName($id, $name, $archived)
     {
         $board = $this->getBoardById($id);
-        $board->setName($name);
+        if($name != '') $board->setName($name);
+        if($archived != '') $board->setArchived($archived);
         $this->entityManager->flush();
         return $board;
     }

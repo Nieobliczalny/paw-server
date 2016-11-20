@@ -48,8 +48,8 @@ class BoardService
         $board->setArchived(false);
         return $this->boardDAO->addBoard($board);
     }
-    public function updateBoardName($id, $name){
-        return $this->boardDAO->updateBoardName($id, $name);
+    public function updateBoardName($id, $name, $archived){
+        return $this->boardDAO->updateBoardName($id, $name, $archived);
 
     }
     public function getBoardLists($id)

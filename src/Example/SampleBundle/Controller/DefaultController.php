@@ -73,8 +73,10 @@ class DefaultController extends FOSRestController
 
     public function putBoardAction($id, Request $request)
     {
-        $name = $request->request->all()['name'];
-        $view = $this->view($this->boardService->updateBoardName($id, $name), 200);
+		$requestData = $request->request->all();
+        $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
+        $archived = $this->checkIfPropertyExists($requestData, 'archived') ? $requestData['archived'] : '';
+        $view = $this->view($this->boardService->updateBoardName($id, $name, $archived), 200);
         return $this->handleView($view);
     }
 
