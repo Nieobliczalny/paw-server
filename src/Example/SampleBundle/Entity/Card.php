@@ -57,6 +57,11 @@ class Card
      */
     protected $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     */
+    protected $tags;
+
 
     public function __construct()
     {
@@ -260,5 +265,39 @@ class Card
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \Example\SampleBundle\Entity\Tag $tag
+     *
+     * @return Card
+     */
+    public function addTag(\Example\SampleBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \Example\SampleBundle\Entity\Tag $tag
+     */
+    public function removeTag(\Example\SampleBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

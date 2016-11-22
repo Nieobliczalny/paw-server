@@ -19,3 +19,9 @@ services:
     example.sample.userservice:
         class: Example\SampleBundle\Services\UserService
         arguments: ["@doctrine.orm.entity_manager"]
+    example.sample.likeservice:
+        class: Example\SampleBundle\Services\LikeService
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.boardservice", "@example.sample.userservice"]
+    example.sample.commentservice:
+        class: Example\SampleBundle\Services\CommentService
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.cardservice" , "@example.sample.userservice"]
