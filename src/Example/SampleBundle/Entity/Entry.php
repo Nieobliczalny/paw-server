@@ -31,10 +31,10 @@ class Entry
     protected $report_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Log", inversedBy="entries")
-     * @ORM\JoinColumn(name="log_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Board", inversedBy="entries")
+     * @ORM\JoinColumn(name="boardId", referencedColumnName="id")
      */
-    protected $log;
+    protected $boardId;
 
 
     /**
@@ -96,26 +96,26 @@ class Entry
     }
 
     /**
-     * Set log
+     * Set board
      *
-     * @param \Example\SampleBundle\Entity\Log $log
+     * @param \Example\SampleBundle\Entity\Board $board
      *
      * @return Entry
      */
-    public function setLog(\Example\SampleBundle\Entity\Log $log = null)
+    public function setBoard(\Example\SampleBundle\Entity\Board $board = null)
     {
-        $this->log = $log;
+        $this->board = $board;
     
         return $this;
     }
 
     /**
-     * Get log
+     * Get board
      *
-     * @return \Example\SampleBundle\Entity\Log
+     * @return \Example\SampleBundle\Entity\Board
      */
-    public function getLog()
+    public function getBoard()
     {
-        return $this->log;
+        return $this->board;
     }
 }

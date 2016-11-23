@@ -47,10 +47,9 @@ class Board
     protected $team;
 
     /**
-     * @ORM\OneToOne(targetEntity="Log")
-     * @ORM\JoinColumn(name="log_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="Entry", mappedBy="boardId")
      */
-    protected $log;
+    protected $entries;
 
     /**
      * @ORM\OneToMany(targetEntity="Like", mappedBy="board", cascade={"remove"})

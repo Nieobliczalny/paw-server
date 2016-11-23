@@ -28,3 +28,6 @@ services:
     example.sample.tagservice:
         class: Example\SampleBundle\Services\TagService
         arguments: ["@doctrine.orm.entity_manager", "@example.sample.boardservice", "@example.sample.cardservice"]
+    example.sample.entryservice:
+        class: Example\SampleBundle\Services\EntryService
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.boardservice"]

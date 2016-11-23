@@ -22,7 +22,8 @@ class DefaultController extends FOSRestController
     protected $userService;
     protected $likeService;
     protected $commentService;
-    protected $tagService;
+    protected $tagService;    
+    protected $entryService;
 
 
     public function __construct()
@@ -41,6 +42,7 @@ class DefaultController extends FOSRestController
         $this->likeService = $container->get('example.sample.likeservice');
         $this->commentService = $container->get('example.sample.commentservice');
         $this->tagService = $container->get('example.sample.tagservice');
+        $this->entryService = $container->get('example.sample.entryservice');        
 
     }
 
@@ -72,8 +74,12 @@ class DefaultController extends FOSRestController
 
     public function postBoardAction(Request $request)
     {
-        $name = $request->request->all()['name'];
+        $name = $request->request->all()['name'];        
         $view = $this->view($this->boardService->addBoard($name), 200);
+        $content = "Add new board ".$name;
+        $board = $this->boardService->getBoardByName($name);
+        $boardId = $board[0]->getId();
+        $this->entryService->addEntry($content,$boardId);
         return $this->handleView($view);
     }
 
