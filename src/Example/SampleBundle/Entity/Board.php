@@ -214,29 +214,6 @@ class Board
         return $this->team;
     }
 
-    /**
-     * Set log
-     *
-     * @param \Example\SampleBundle\Entity\Log $log
-     *
-     * @return Board
-     */
-    public function setLog(\Example\SampleBundle\Entity\Log $log = null)
-    {
-        $this->log = $log;
-    
-        return $this;
-    }
-
-    /**
-     * Get log
-     *
-     * @return \Example\SampleBundle\Entity\Log
-     */
-    public function getLog()
-    {
-        return $this->log;
-    }
 
     /**
      * Add like

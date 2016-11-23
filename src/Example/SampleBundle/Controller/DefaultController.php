@@ -85,9 +85,13 @@ class DefaultController extends FOSRestController
     public function putBoardAction($id, Request $request)
     {
 		$requestData = $request->request->all();
+        $board = $this->boardService->getBoardById($id);
+        $boardOldName = $board->getName();
         $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
         $archived = $this->checkIfPropertyExists($requestData, 'archived') ? $requestData['archived'] : '';
-        $view = $this->view($this->boardService->updateBoardName($id, $name, $archived), 200);
+        $view = $this->view($this->boardService->updateBoardName($id, $name, $archived), 200);  
+        $content = "Modyfied board".$boardOldName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 

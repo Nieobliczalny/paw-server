@@ -29,6 +29,5 @@ class EntryService
         $time->format('H:i:s \O\n d.m.Y'); 
         $entry->setReportDate($time);        
         return $this->entryDAO->addEntry($entry);
-    }
-    
+    }    
 }
