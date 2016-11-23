@@ -25,6 +25,10 @@ Przydatne polecenia:
 
  php bin\console doctrine:schema:update --force
  
+* Sprawdzenie poprawności bazy danych:
+
+ php bin\console doctrine:schema:validate
+ 
 
 Symfony Standard Edition
 ========================
