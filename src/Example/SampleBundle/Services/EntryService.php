@@ -24,8 +24,8 @@ class EntryService
     {        
         $entry = new Entry();
         $entry->setContent($content); 
-        $board = $this->boardService->getBoardById($boardId);
-        $entry->setBoard($board);
+        $board = $this->boardService->getBoardById($boardId);        
+        $entry->setBoard($board);        
         $time = new \DateTime();
         $time->format('H:i:s \O\n d.m.Y'); 
         $entry->setReportDate($time);        

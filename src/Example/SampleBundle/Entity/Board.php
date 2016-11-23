@@ -304,4 +304,38 @@ class Board
     {
         return $this->tags;
     }
+
+    /**
+     * Add entry
+     *
+     * @param \Example\SampleBundle\Entity\Entry $entry
+     *
+     * @return Board
+     */
+    public function addEntry(\Example\SampleBundle\Entity\Entry $entry)
+    {
+        $this->entries[] = $entry;
+    
+        return $this;
+    }
+
+    /**
+     * Remove entry
+     *
+     * @param \Example\SampleBundle\Entity\Entry $entry
+     */
+    public function removeEntry(\Example\SampleBundle\Entity\Entry $entry)
+    {
+        $this->entries->removeElement($entry);
+    }
+
+    /**
+     * Get entries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
 }

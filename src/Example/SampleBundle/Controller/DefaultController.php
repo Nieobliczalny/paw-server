@@ -75,11 +75,10 @@ class DefaultController extends FOSRestController
     public function postBoardAction(Request $request)
     {
         $name = $request->request->all()['name'];        
-        $view = $this->view($this->boardService->addBoard($name), 200);
+		$board = $this->boardService->addBoard($name);
+        $view = $this->view($board, 200);
         $content = "Add new board ".$name;
-        $board = $this->boardService->getBoardByName($name);
-        $boardId = $board[0]->getId();
-        $this->entryService->addEntry($content,$boardId);
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
