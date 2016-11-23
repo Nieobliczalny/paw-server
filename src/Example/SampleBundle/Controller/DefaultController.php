@@ -226,14 +226,25 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function postCardUserCommentAction(Request $request, $cardId, $userId){
-        $content = $request->request->all()['content'];
-        $view = $this->view($this->commentService->addComment($content, $cardId, $userId), 200);
+    public function postCardCommentAction(Request $request, $cardId){
+		$session = new Session();
+		$userID = trim($session->get('UserID'));
+		//var_dump( $request->request->all());
+		if ($userID != '')
+		{
+			$content = $request->request->all()['content'];
+			$view = $this->view($this->commentService->addComment($content, $cardId, $userID), 200);
+		}
+		else
+		{
+			$data = [];
+			$view = $this->view($data, 401);
+		}
         return $this->handleView($view);
     }
     public function putCommentAction(Request $request, $commentId){
         $content = $request->request->all()['content'];
-        $view = $this->view($this->commentService->deleteCommentById($content, $commentId), 200);
+        $view = $this->view($this->commentService->updateCommentContent($commentId, $content), 200);
         return $this->handleView($view);
     }
 

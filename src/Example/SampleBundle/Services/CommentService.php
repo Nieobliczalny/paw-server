@@ -11,6 +11,7 @@ namespace Example\SampleBundle\Services;
 
 use Example\SampleBundle\DAO\CommentDAO;
 use Example\SampleBundle\Entity\Board;
+use Example\SampleBundle\Entity\Comment;
 use Doctrine\ORM\EntityManager;
 
 class CommentService
