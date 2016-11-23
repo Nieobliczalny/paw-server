@@ -10,7 +10,7 @@ namespace Example\SampleBundle\Services;
 
 
 use Example\SampleBundle\DAO\TagDAO;
-use Example\SampleBundle\Entity\Board;
+use Example\SampleBundle\Entity\Tag;
 use Doctrine\ORM\EntityManager;
 
 class TagService

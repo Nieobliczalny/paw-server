@@ -118,28 +118,4 @@ class Entry
     {
         return $this->board;
     }
-
-    /**
-     * Set boardId
-     *
-     * @param \Example\SampleBundle\Entity\Board $boardId
-     *
-     * @return Entry
-     */
-    public function setBoardId(\Example\SampleBundle\Entity\Board $boardId = null)
-    {
-        $this->boardId = $boardId;
-    
-        return $this;
-    }
-
-    /**
-     * Get boardId
-     *
-     * @return \Example\SampleBundle\Entity\Board
-     */
-    public function getBoardId()
-    {
-        return $this->boardId;
-    }
 }

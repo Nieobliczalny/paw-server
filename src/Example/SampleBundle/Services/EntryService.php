@@ -20,11 +20,10 @@ class EntryService
         
     }
 
-    public function addEntry($content, $boardId)
+    public function addEntry($content, $board)
     {        
         $entry = new Entry();
-        $entry->setContent($content); 
-        $board = $this->boardService->getBoardById($boardId);        
+        $entry->setContent($content);       
         $entry->setBoard($board);        
         $time = new \DateTime();
         $time->format('H:i:s \O\n d.m.Y'); 

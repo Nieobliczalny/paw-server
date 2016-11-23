@@ -47,7 +47,7 @@ class Board
     protected $team;
 
     /**
-     * @ORM\OneToMany(targetEntity="Entry", mappedBy="boardId")
+     * @ORM\OneToMany(targetEntity="Entry", mappedBy="board", cascade={"remove"})
      */
     protected $entries;
 
@@ -71,6 +71,7 @@ class Board
         $this->cardList = new \Doctrine\Common\Collections\ArrayCollection();
         $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

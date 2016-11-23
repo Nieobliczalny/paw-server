@@ -32,9 +32,9 @@ class Entry
 
     /**
      * @ORM\ManyToOne(targetEntity="Board", inversedBy="entries")
-     * @ORM\JoinColumn(name="boardId", referencedColumnName="id")
+     * @ORM\JoinColumn(name="board_id", referencedColumnName="id")
      */
-    protected $boardId;
+    protected $board;
 
 
     /**
