@@ -44,7 +44,8 @@ class TagService
         $tag = $this->tagDAO->addTag($tag);
         $board = $this->boardService->getBoardById($boardId);
         $board->addTag($tag);
-        $this->entityManager->flush();
+		$tag->setBoard($board);
+        $this->em->flush();
         return $tag;
     }
 
@@ -52,7 +53,7 @@ class TagService
         $tag  = $this->tagDAO->getTagById($tagId);
         $card = $this->cardService->getCardById($cardId);
         $card->addTag($tag);
-        $this->entityManager->flush();
+        $this->em->flush();
         return $tag;
     }
     public function getTagsByBoard($boardId){

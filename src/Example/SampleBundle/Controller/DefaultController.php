@@ -308,9 +308,10 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function postTagAction(Request $request, $boardId){
+    public function postTagAction(Request $request){
         $content = $request->request->all()['content'];
         $colour = $request->request->all()['colour'];
+        $boardId = $request->request->all()['boardId'];
         $view = $this->view($this->tagService->addTag($boardId,$colour,$content), 200);
         return $this->handleView($view);
     }
