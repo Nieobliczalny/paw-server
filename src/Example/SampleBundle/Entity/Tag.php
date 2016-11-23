@@ -31,7 +31,7 @@ class Tag
     protected $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Board", inversedBy="Tag")
+     * @ORM\ManyToOne(targetEntity="Board", inversedBy="tags")
      * @ORM\JoinColumn(name="board_id", referencedColumnName="id")
      */
     protected $board;
