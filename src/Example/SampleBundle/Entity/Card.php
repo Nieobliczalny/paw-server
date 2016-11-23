@@ -63,11 +63,15 @@ class Card
     protected $tags;
 
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->tasks = new ArrayCollection();
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -128,6 +132,54 @@ class Card
     }
 
     /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Card
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Card
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
      * Set cardList
      *
      * @param \Example\SampleBundle\Entity\CardList $cardList
@@ -183,54 +235,6 @@ class Card
     public function getTasks()
     {
         return $this->tasks;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Card
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set position
-     *
-     * @param string $position
-     *
-     * @return Card
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-    
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return string
-     */
-    public function getPosition()
-    {
-        return $this->position;
     }
 
     /**

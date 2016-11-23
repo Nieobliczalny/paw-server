@@ -1,0 +1,66 @@
+<?php
+// src\Example\SampleBundle\Entity\Card.php
+namespace Example\SampleBundle\Entity;
+
+
+use Doctrine\ORM\Mapping as ORM;
+use Example\SampleBundle\Entity\CardList;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
+ /**
+  * @ORM\Entity
+  * @ORM\Table(name="Card")
+  */
+class Card
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CardList", inversedBy="cards")
+     * @ORM\JoinColumn(name="cardList_id", referencedColumnName="id")
+     */
+    private $cardList;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="card")
+     */
+    protected $tasks;
+
+    /**
+     * @ORM\Column(type="boolean", length=150)
+     */
+    protected $archived;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $position;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="card", cascade={"remove"})
+     */
+    protected $comments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     */
+    protected $tags;
+
+
+}

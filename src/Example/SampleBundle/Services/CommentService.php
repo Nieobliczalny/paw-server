@@ -9,8 +9,7 @@
 namespace Example\SampleBundle\Services;
 
 
-use Example\SampleBundle\DAO\BoardDAO;
-use Example\SampleBundle\DAO\CardDAO;
+use Example\SampleBundle\DAO\CommentDAO;
 use Example\SampleBundle\Entity\Board;
 use Doctrine\ORM\EntityManager;
 

@@ -93,28 +93,4 @@ class Tag
     {
         return $this->content;
     }
-
-    /**
-     * Set board
-     *
-     * @param \Example\SampleBundle\Entity\Board $board
-     *
-     * @return Tag
-     */
-    public function setBoard(\Example\SampleBundle\Entity\Board $board = null)
-    {
-        $this->board = $board;
-    
-        return $this;
-    }
-
-    /**
-     * Get board
-     *
-     * @return \Example\SampleBundle\Entity\Board
-     */
-    public function getBoard()
-    {
-        return $this->board;
-    }
 }
