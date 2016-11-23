@@ -90,7 +90,7 @@ class DefaultController extends FOSRestController
         $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
         $archived = $this->checkIfPropertyExists($requestData, 'archived') ? $requestData['archived'] : '';
         $view = $this->view($this->boardService->updateBoardName($id, $name, $archived), 200);  
-        $content = "Modyfied board".$boardOldName;
+        $content = "Modyfied board ".$boardOldName;
         $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
@@ -100,23 +100,48 @@ class DefaultController extends FOSRestController
     {
         $name = $request->request->all()['name'];
         $boardId = $request->request->all()['boardID'];
-        $view = $this->view($this->cardListService->addCardList($boardId, $name), 200);
+        $list = $this->cardListService->addCardList($boardId, $name);
+        $view = $this->view($list, 200);
+        
+        $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
+        $content = "Add new list ".$name." to board ".$boardName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
     public function putListAction($id, Request $request)
     {
+        $list = $this->cardListService->getCardListById($id);
+        $listOldName = $list->getName();
+        $boardId = $list->getBoard();
+        $board = $this->boardService->getBoardById($boardId);
+
 		$requestData = $request->request->all();
         $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
         $archived = $this->checkIfPropertyExists($requestData, 'archived') ? $requestData['archived'] : '';
-        $view = $this->view($this->cardListService->updateCardList($id, $name, $archived),200);
+        $list = $this->cardListService->updateCardList($id, $name, $archived);
+        $view = $this->view($list,200);
+        
+        $content = "Modyfied list ".$listOldName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
     public function deleteListAction($id)
     {
 		if (!$this->cardListService->getCardListById($id)->getArchived()) $view = $this->view('List not archived', 403);
-        else $view = $this->view($this->cardListService->deleteCardListById($id),200);
+        else
+        {
+            $list = $this->cardListService->getCardListById($id);
+            $listOldName = $list->getName();
+            $boardId = $list->getBoard();
+            $board = $this->boardService->getBoardById($boardId);
+            $view = $this->view($this->cardListService->deleteCardListById($id),200);
+            $content = "Delete list ".$listOldName;
+            $this->entryService->addEntry($content,$board);
+            
+        }
         return $this->handleView($view);
     }
 
@@ -295,13 +320,13 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function getBoardTags($boardId)
+    public function getBoardTagsAction($boardId)
     {
         $view = $this->view($this->tagService->getTagsByBoard($boardId), 200);
         return $this->handleView($view);
     }
 
-    public function getCardTags($cardId){
+    public function getCardTagsAction($cardId){
         $view = $this->view($this->tagService->getTagsByCard($cardId), 200);
         return $this->handleView($view);
     }
