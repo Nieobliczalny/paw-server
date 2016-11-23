@@ -28,7 +28,7 @@ class LikeDAO
 
     public function deleteLike($id)
     {
-        $like = $this->getBoardById($id);
+        $like = $this->getLikeById($id);
         $this->entityManager->remove($like);
         $this->entityManager->flush();
         return $like;

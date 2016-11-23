@@ -10,7 +10,7 @@ namespace Example\SampleBundle\Services;
 
 
 use Example\SampleBundle\DAO\LikeDAO;
-use Example\SampleBundle\Entity\Board;
+use Example\SampleBundle\Entity\Like;
 use Doctrine\ORM\EntityManager;
 
 class LikeService
