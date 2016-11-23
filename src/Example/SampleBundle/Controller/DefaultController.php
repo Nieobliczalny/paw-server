@@ -20,6 +20,9 @@ class DefaultController extends FOSRestController
     protected $cardService;
     protected $taskService;
     protected $userService;
+    protected $likeService;
+    protected $commentService;
+    protected $tagService;
 
 
     public function __construct()
@@ -35,6 +38,9 @@ class DefaultController extends FOSRestController
         $this->cardService = $container->get('example.sample.cardservice');
         $this->taskService = $container->get('example.sample.taskservice');
         $this->userService = $container->get('example.sample.userservice');
+        $this->likeService = $container->get('example.sample.likeservice');
+        $this->commentService = $container->get('example.sample.commentservice');
+        $this->tagService = $container->get('example.sample.tagservice');
 
     }
 
@@ -191,6 +197,88 @@ class DefaultController extends FOSRestController
         $view = $this->view($this->cardService->getCardById($cardID)->getTasks(),200);
         return $this->handleView($view);
     }
+    public function postLikeAction($boardId, $userId){
+        $view = $this->view($this->likeService->addLike($boardId, $userId), 200);
+        return $this->handleView($view);
+    }
+    public function deleteLikeAction($likeId){
+        $view = $this->view($this->likeService->deleteLikeById($likeId), 200);
+        return $this->handleView($view);
+    }
+    public function checkBoardUserLikeAction($boardId, $userId)
+    {
+        $view = $this->view($this->likeService->checkLikeByBoardAndUser($boardId, $userId), 200);
+        return $this->handleView($view);
+    }
+    public function getBoardLikesAction($boardId){
+
+        $view = $this->view($this->likeService->getLikesbyBoard($boardId), 200);
+        return $this->handleView($view);
+    }
+
+    public function getCardCommentsAction($cardId){
+        $view = $this->view($this->commentService->getCommentsByCard($cardId), 200);
+        return $this->handleView($view);
+    }
+
+    public function deleteCommentAction($commentId){
+        $view = $this->view($this->commentService->deleteCommentById($commentId), 200);
+        return $this->handleView($view);
+    }
+
+    public function postCardUserCommentAction(Request $request, $cardId, $userId){
+        $content = $request->request->all()['content'];
+        $view = $this->view($this->commentService->addComment($content, $cardId, $userId), 200);
+        return $this->handleView($view);
+    }
+    public function putCommentAction(Request $request, $commentId){
+        $content = $request->request->all()['content'];
+        $view = $this->view($this->commentService->deleteCommentById($content, $commentId), 200);
+        return $this->handleView($view);
+    }
+
+    public function putTagAction(Request $request, $tagId)
+    {
+        $content = $request->request->all()['content'];
+        $colour = $request->request->all()['colour'];
+        $view = $this->view($this->tagService->updateTag($tagId,$colour,$content), 200);
+        return $this->handleView($view);
+    }
+
+    public function deleteTagAction($tagId)
+    {
+        $view = $this->view($this->tagService->deleteTag($tagId), 200);
+        return $this->handleView($view);
+    }
+
+    public function postTagAction(Request $request, $boardId){
+        $content = $request->request->all()['content'];
+        $colour = $request->request->all()['colour'];
+        $view = $this->view($this->tagService->addTag($boardId,$colour,$content), 200);
+        return $this->handleView($view);
+    }
+
+    public function postCardTagAction($tagId, $cardId){
+        $view = $this->view($this->tagService->addTagToCard($tagId, $cardId), 200);
+        return $this->handleView($view);
+    }
+
+    public function getBoardTags($boardId)
+    {
+        $view = $this->view($this->tagService->getTagsByBoard($boardId), 200);
+        return $this->handleView($view);
+    }
+
+    public function getCardTags($cardId){
+        $view = $this->view($this->tagService->getTagsByCard($cardId), 200);
+        return $this->handleView($view);
+    }
+
+
+
+
+
+
 
     public function postUserAction(Request $request)
     {        

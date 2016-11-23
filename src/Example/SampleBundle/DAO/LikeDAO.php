@@ -44,6 +44,8 @@ class LikeDAO
         if($board == null)
             return false;
         return true;
-
+    }
+    public function getLikesByBoard($boardId){
+        return $this->entityManager->getRepository('ExampleSampleBundle:Like')->findBy(array('board' => $boardId));
     }
 }

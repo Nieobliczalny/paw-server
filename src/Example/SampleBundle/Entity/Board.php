@@ -56,6 +56,11 @@ class Board
      * @ORM\OneToMany(targetEntity="Like", mappedBy="board", cascade={"remove"})
      */
     protected $likes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Tag", mappedBy="board", cascade={"remove"})
+     */
+    protected $tags;
     
 
     public function setName($name)
@@ -256,5 +261,39 @@ class Board
     public function getLikes()
     {
         return $this->likes;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \Example\SampleBundle\Entity\Tag $tag
+     *
+     * @return Card
+     */
+    public function addTag(\Example\SampleBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \Example\SampleBundle\Entity\Tag $tag
+     */
+    public function removeTag(\Example\SampleBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

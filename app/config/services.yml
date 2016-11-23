@@ -25,3 +25,6 @@ services:
     example.sample.commentservice:
         class: Example\SampleBundle\Services\CommentService
         arguments: ["@doctrine.orm.entity_manager", "@example.sample.cardservice" , "@example.sample.userservice"]
+    example.sample.tagservice:
+        class: Example\SampleBundle\Services\TagService
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.boardservice", "@example.sample.cardservice"]

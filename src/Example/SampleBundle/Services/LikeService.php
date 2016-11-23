@@ -30,7 +30,6 @@ class LikeService
     public function checkLikeByBoardAndUser($boardId, $userId)
     {
         return $this->likeDAO->checkLike($boardId, $userId);
-
     }
 
     public function deleteLikeById($id){
@@ -45,5 +44,8 @@ class LikeService
         $like->setBoard($board);
         $like->setUser($user);
         return $this->likeDAO->addLike($like);
+    }
+    public function getLikesByBoard($boardId){
+        return $this->likeDAO->getLikesByBoard($boardId);
     }
 }
