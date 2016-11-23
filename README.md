@@ -1,3 +1,21 @@
+Przydatne polecenia:
+====================
+
+* Czyszczenie cache:
+Usuń folder var\cache\dev
+Wydaj polecenia w konsoli:
+php bin\console doctrine:cache:clear-metadata 
+php bin\console doctrine:cache:clear-query  
+php bin\console doctrine:cache:clear-result 
+
+* Pełny reset bazy danych:
+php bin\console doctrine:database:drop --force
+php bin\console doctrine:database:create
+php bin\console doctrine:schema:update --force
+
+* Update bazy:
+php bin\console doctrine:schema:update --force
+
 Symfony Standard Edition
 ========================
 
