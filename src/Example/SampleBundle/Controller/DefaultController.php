@@ -197,8 +197,20 @@ class DefaultController extends FOSRestController
         $view = $this->view($this->cardService->getCardById($cardID)->getTasks(),200);
         return $this->handleView($view);
     }
-    public function postLikeAction($boardId, $userId){
-        $view = $this->view($this->likeService->addLike($boardId, $userId), 200);
+    public function postLikeAction(Request $request){
+		$session = new Session();
+		$userID = trim($session->get('UserID'));
+		if ($userID != '')
+		{
+			$requestData = $request->request->all();
+			$boardId = $this->checkIfPropertyExists($requestData, 'boardId') ? $requestData['boardId'] : '';
+			$view = $this->view($this->likeService->addLike($boardId, $userID), 200);
+		}
+		else
+		{
+			$data = [];
+			$view = $this->view($data, 401);
+		}
         return $this->handleView($view);
     }
     public function deleteLikeAction($likeId){
