@@ -116,6 +116,7 @@ class DefaultController extends FOSRestController
         $listOldName = $list->getName();
         $boardId = $list->getBoard();
         $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
 
 		$requestData = $request->request->all();
         $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
@@ -123,7 +124,7 @@ class DefaultController extends FOSRestController
         $list = $this->cardListService->updateCardList($id, $name, $archived);
         $view = $this->view($list,200);
         
-        $content = "Modyfied list ".$listOldName;
+        $content = "Modyfied list ".$listOldName." in ".$boardName;
         $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
@@ -137,8 +138,9 @@ class DefaultController extends FOSRestController
             $listOldName = $list->getName();
             $boardId = $list->getBoard();
             $board = $this->boardService->getBoardById($boardId);
+            $boardName = $board->getName();
             $view = $this->view($this->cardListService->deleteCardListById($id),200);
-            $content = "Delete list ".$listOldName;
+            $content = "Delete list ".$listOldName." in ".$boardName;
             $this->entryService->addEntry($content,$board);
             
         }
@@ -156,12 +158,30 @@ class DefaultController extends FOSRestController
         $name = $request->request->all()['name'];
         $cardListId = $request->request->all()['cardListID'];
         $description = $request->request->all()['description'];
-        $view = $this->view($this->cardService->addCard($cardListId, $name, $description), 200);
+        $card = $this->cardService->addCard($cardListId, $name, $description);
+        $view = $this->view($card, 200);
+        
+        $list = $this->cardListService->getCardListById($cardListId);
+        $listName = $list->getName();
+        $boardId = $list->getBoard();
+        $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
+        $content = "Add new card ".$name." to list ".$listName." to board ".$boardName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
     public function putCardAction($id, Request $request)
     {
+        $card = $this->cardService->getCardById($id);
+        $cardOldName = $card->getName();
+        $cardListId = $card->getCardList();        
+        $list = $this->cardListService->getCardListById($cardListId);
+        $listName = $list->getName();
+        $boardId = $list->getBoard();
+        $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
+
         $requestData = $request->request->all();
         $name = $this->checkIfPropertyExists($requestData, 'name') ? $requestData['name'] : '';
         $archived = $this->checkIfPropertyExists($requestData, 'archived') ? $requestData['archived'] : '';
@@ -170,6 +190,8 @@ class DefaultController extends FOSRestController
         $position = $this->checkIfPropertyExists($requestData, 'position') ? $requestData['position'] : '';
 
         $view = $this->view($this->cardService->updateCard($id, $name, $archived, $description, $cardList_id, $position),200);
+        $content = "Modyfied card ".$cardOldName." in list ".$listName." in board ".$boardName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
@@ -177,7 +199,23 @@ class DefaultController extends FOSRestController
     public function deleteCardAction($id)
     {
 		if (!$this->cardService->getCardById($id)->getArchived()) $view = $this->view('Card not archived', 403);
-        else $view = $this->view($this->cardService->deleteCardById($id),200);
+        else
+        {
+            $card = $this->cardService->getCardById($id);
+            $cardOldName = $card->getName();
+            $cardListId = $card->getCardList(); 
+            $list = $this->cardListService->getCardListById($id);
+            $listOldName = $list->getName();
+            $boardId = $list->getBoard();
+            $board = $this->boardService->getBoardById($boardId);
+            $boardName = $board->getName();
+
+
+
+             $view = $this->view($this->cardService->deleteCardById($id),200);
+             $content = "Delete card ".$cardOldName." in list ".$listOldName." in ".$boardName;
+             $this->entryService->addEntry($content,$board);
+        }
         return $this->handleView($view);
     }
 
