@@ -346,13 +346,14 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function postCardCommentAction(Request $request, $cardId){
+    public function postCommentAction(Request $request){
 		$session = new Session();
 		$userID = trim($session->get('UserID'));
 		//var_dump( $request->request->all());
 		if ($userID != '')
 		{
 			$content = $request->request->all()['content'];
+			$cardId = $request->request->all()['cardId'];
             $comment = $this->commentService->addComment($content, $cardId, $userID);
 			$view = $this->view($comment, 200);
 
@@ -407,7 +408,7 @@ class DefaultController extends FOSRestController
 
     public function deleteTagAction($tagId)
     {
-        $view = $this->view($this->tagService->deleteTag($tagId), 200);
+        $view = $this->view($this->tagService->deleteTagById($tagId), 200);
         return $this->handleView($view);
     }
 
@@ -419,7 +420,8 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function postCardTagAction($tagId, $cardId){
+    public function postCardTagAction($cardId){
+        $tagId = $request->request->all()['tagId'];
         $view = $this->view($this->tagService->addTagToCard($tagId, $cardId), 200);
         return $this->handleView($view);
     }
