@@ -45,6 +45,9 @@ class CommentService
         $comment->setCard($card);
         $user = $this->userService->getUserById($userId);
         $comment->setUser($user);
+        $time = new \DateTime();
+        $time->format('H:i:s \O\n d.m.Y'); 
+        $comment->setReportDate($time);      
         return $this->commentDAO->addComment($comment);
     }
     public function updateCommentContent($id, $content){
