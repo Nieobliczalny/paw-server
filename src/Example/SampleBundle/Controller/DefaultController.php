@@ -278,6 +278,15 @@ class DefaultController extends FOSRestController
 			$requestData = $request->request->all();
 			$boardId = $this->checkIfPropertyExists($requestData, 'boardId') ? $requestData['boardId'] : '';
 			$view = $this->view($this->likeService->addLike($boardId, $userID), 200);
+
+            $board = $this->boardService->getBoardById($boardId);
+            $boardName = $board->getName();
+            $user = $this->userService->getUserById($userID);
+            $userName = $user->getUsername();
+            $content = "Add like by ".$userName." to board ".$boardName;
+            $this->entryService->addEntry($content,$board);
+
+
 		}
 		else
 		{
@@ -287,7 +296,18 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
     public function deleteLikeAction($likeId){
+        $like = $this->likeService->getLikeById($likeId);
+        $boardId = $like->getBoard();
+        $userID = $like->getUser();
+        $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
+        $user = $this->userService->getUserById($userID);
+        $userName = $user->getUsername();
+
         $view = $this->view($this->likeService->deleteLikeById($likeId), 200);
+        $content = "Delete like from user ".$userName." in board ".$boardName;
+        $this->entryService->addEntry($content,$board);
+
         return $this->handleView($view);
     }
     public function checkBoardUserLikeAction($boardId, $userId)

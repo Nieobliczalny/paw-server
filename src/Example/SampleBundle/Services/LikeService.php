@@ -48,4 +48,7 @@ class LikeService
     public function getLikesByBoard($boardId){
         return $this->likeDAO->getLikesByBoard($boardId);
     }
+    public function getLikeById($id){
+        return $this->likeDAO->getLikeById($id);
+    }
 }
