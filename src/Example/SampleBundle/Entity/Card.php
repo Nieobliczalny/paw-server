@@ -293,6 +293,7 @@ class Card
     public function removeTag(\Example\SampleBundle\Entity\Tag $tag)
     {
         $this->tags->removeElement($tag);
+        return $tag;
     }
 
     /**
