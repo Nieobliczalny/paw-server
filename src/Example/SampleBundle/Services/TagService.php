@@ -62,5 +62,8 @@ class TagService
     public function getTagsByCard($cardId){
         return $this->cardService->getCardById($cardId)->getTags();
     }
+    public function getTagById($tagId){
+        return $this->tagDAO->getTagById($tagId);
+    }
 
 }
