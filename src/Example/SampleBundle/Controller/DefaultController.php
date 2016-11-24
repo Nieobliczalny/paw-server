@@ -429,9 +429,10 @@ class DefaultController extends FOSRestController
         $cardListId = $card->getCardList(); 
         $list = $this->cardListService->getCardListById($cardListId);        
         $boardId = $list->getBoard();
+        $listName = $list->getName();
         $board = $this->boardService->getBoardById($boardId);
-
-        $content = "Delete tag ".$content." from card ".$cardName;
+        $boardName = $board->getName();
+        $content = "Delete tag ".$content." from card ".$cardName." from list ".$listName. " from board ".$boardName;
         $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
@@ -459,10 +460,12 @@ class DefaultController extends FOSRestController
         $card = $this->cardService->getCardById($cardId);
         $cardName = $card->getName();
         $cardListId = $card->getCardList(); 
-        $list = $this->cardListService->getCardListById($cardListId);        
+        $list = $this->cardListService->getCardListById($cardListId);      
+        $listName = $list->getName();  
         $boardId = $list->getBoard();
         $board = $this->boardService->getBoardById($boardId);
-        $content = "Add new tag ".$content." to card ".$cardName;
+        $boardName = $board->getName();
+        $content = "Add new tag ".$content." to card ".$cardName." to list ".$listName." to board ".$boardName;
         $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
