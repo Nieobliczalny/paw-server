@@ -408,7 +408,14 @@ class DefaultController extends FOSRestController
 
     public function deleteTagAction($tagId)
     {
-        $view = $this->view($this->tagService->deleteTagById($tagId), 200);
+        $tag = $this->tagService->deleteTagById($tagId);
+        $content = $tag->getContent();
+        $view = $this->view($tag, 200);
+        $boardId = $tag->getBoard();
+        $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
+        $content = "Delete tag ".$content." from board ".$boardName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
@@ -422,7 +429,14 @@ class DefaultController extends FOSRestController
         $content = $request->request->all()['content'];
         $colour = $request->request->all()['colour'];
         $boardId = $request->request->all()['boardId'];
-        $view = $this->view($this->tagService->addTag($boardId,$colour,$content), 200);
+        $tag = $this->tagService->addTag($boardId,$colour,$content);
+        $view = $this->view($tag, 200);
+
+        $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
+        $content = "Add new tag ".$content." to board ".$boardName;
+        $this->entryService->addEntry($content,$board);
+
         return $this->handleView($view);
     }
 
