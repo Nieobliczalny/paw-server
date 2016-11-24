@@ -398,13 +398,13 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function putTagAction(Request $request, $tagId)
-    {
-        $content = $request->request->all()['content'];
-        $colour = $request->request->all()['colour'];
-        $view = $this->view($this->tagService->updateTag($tagId,$colour,$content), 200);
-        return $this->handleView($view);
-    }
+    // public function putTagAction(Request $request, $tagId)
+    // {
+    //     $content = $request->request->all()['content'];
+    //     $colour = $request->request->all()['colour'];
+    //     $view = $this->view($this->tagService->updateTag($tagId,$colour,$content), 200);
+    //     return $this->handleView($view);
+    // }
 
     public function deleteTagAction($tagId)
     {
@@ -421,7 +421,18 @@ class DefaultController extends FOSRestController
 
     public function deleteCardTagAction($cardId,$tagId)
     {
-        $view = $this->view($this->cardService->deleteTagFromCard($cardId, $this->tagService->getTagById($tagId)), 200);
+        $tag = $this->cardService->deleteTagFromCard($cardId, $this->tagService->getTagById($tagId));
+        $content = $tag->getContent();
+        $view = $this->view($tag, 200);
+        $card = $this->cardService->getCardById($cardId);
+        $cardName = $card->getName();
+        $cardListId = $card->getCardList(); 
+        $list = $this->cardListService->getCardListById($cardListId);        
+        $boardId = $list->getBoard();
+        $board = $this->boardService->getBoardById($boardId);
+
+        $content = "Delete tag ".$content." from card ".$cardName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
@@ -442,7 +453,17 @@ class DefaultController extends FOSRestController
 
     public function postCardTagAction(Request $request, $cardId){
         $tagId = $request->request->all()['tagId'];
-        $view = $this->view($this->tagService->addTagToCard($tagId, $cardId), 200);
+        $tag = $this->tagService->addTagToCard($tagId, $cardId);
+        $view = $this->view($tag, 200);
+        $content = $tag->getContent();
+        $card = $this->cardService->getCardById($cardId);
+        $cardName = $card->getName();
+        $cardListId = $card->getCardList(); 
+        $list = $this->cardListService->getCardListById($cardListId);        
+        $boardId = $list->getBoard();
+        $board = $this->boardService->getBoardById($boardId);
+        $content = "Add new tag ".$content." to card ".$cardName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
