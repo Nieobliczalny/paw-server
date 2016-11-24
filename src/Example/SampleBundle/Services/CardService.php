@@ -45,5 +45,8 @@ class CardService
     {
         return $this->cardDAO->delete($id);
     }
-    
+    public function deleteTagFromCard($cardId, $tag)
+    {
+        return $this->cardDAO->deleteTagFromCard($cardId, $tag);
+    }
 }

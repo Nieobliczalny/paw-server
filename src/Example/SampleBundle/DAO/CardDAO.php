@@ -59,5 +59,13 @@ class CardDAO
 		}
         return $card;
     }
+    public function deleteTagFromCard($cardId, $tag)
+    {
+        $card = $this->getCard($cardId);
+        $data = $card->removeTag($tag);
+        $this->entityManager->persist($card);
+        $this->entityManager->flush();
+        return $data;
+    }
     
 }
