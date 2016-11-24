@@ -54,4 +54,8 @@ class CommentService
         return $this->commentDAO->updateCommentContent($id, $content);
 
     }
+    public function getCommentById($id)
+    {
+        return $this->commentDAO->getCommentById($id);
+    }
 }

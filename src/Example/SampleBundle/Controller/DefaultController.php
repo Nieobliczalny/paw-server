@@ -224,6 +224,7 @@ class DefaultController extends FOSRestController
         $view = $this->view($this->cardService->getCardById($id),200);
         return $this->handleView($view);
     }
+
     public function postTaskAction(Request $request)
     {
         $name = $request->request->all()['name'];
@@ -306,7 +307,22 @@ class DefaultController extends FOSRestController
     }
 
     public function deleteCommentAction($commentId){
+        $comment = $this->commentService->getCommentById($commentId);
+        $commentContent = $comment->getContent();
+        $cardId = $comment->getCard();
+        $card = $this->cardService->getCardById($cardId);
+        $cardOldName = $card->getName();
+        $cardListId = $card->getCardList(); 
+        $list = $this->cardListService->getCardListById($cardListId);
+        $listOldName = $list->getName();
+        $boardId = $list->getBoard();
+        $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
+
         $view = $this->view($this->commentService->deleteCommentById($commentId), 200);
+
+        $content = "Delete comment ".$commentContent." from card ".$cardOldName." in list ".$listOldName." in ".$boardName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
@@ -317,7 +333,21 @@ class DefaultController extends FOSRestController
 		if ($userID != '')
 		{
 			$content = $request->request->all()['content'];
-			$view = $this->view($this->commentService->addComment($content, $cardId, $userID), 200);
+            $comment = $this->commentService->addComment($content, $cardId, $userID);
+			$view = $this->view($comment, 200);
+
+            $cardId = $comment->getCard();
+            $card = $this->cardService->getCardById($cardId);
+            $cardOldName = $card->getName();
+            $cardListId = $card->getCardList(); 
+            $list = $this->cardListService->getCardListById($cardListId);
+            $listOldName = $list->getName();
+            $boardId = $list->getBoard();
+            $board = $this->boardService->getBoardById($boardId);
+            $boardName = $board->getName();
+            $content = "Add comment ".$content." to card ".$cardOldName." in list ".$listOldName." in ".$boardName;
+            $this->entryService->addEntry($content,$board);
+
 		}
 		else
 		{
@@ -328,7 +358,22 @@ class DefaultController extends FOSRestController
     }
     public function putCommentAction(Request $request, $commentId){
         $content = $request->request->all()['content'];
+
+        $comment = $this->commentService->getCommentById($commentId);
+        $commentContent = $comment->getContent();
+        $cardId = $comment->getCard();
+        $card = $this->cardService->getCardById($cardId);
+        $cardOldName = $card->getName();
+        $cardListId = $card->getCardList(); 
+        $list = $this->cardListService->getCardListById($cardListId);
+        $listOldName = $list->getName();
+        $boardId = $list->getBoard();
+        $board = $this->boardService->getBoardById($boardId);
+        $boardName = $board->getName();
+
         $view = $this->view($this->commentService->updateCommentContent($commentId, $content), 200);
+        $content = "Modyfied comment ".$commentContent." from card ".$cardOldName." in list ".$listOldName." in ".$boardName;
+        $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
     }
 
