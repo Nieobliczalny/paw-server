@@ -370,6 +370,11 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function getBoardEntryAction($boardId){
+        $view = $this->view($this->entryService->getEntryByBoard($boardId), 200);
+        return $this->handleView($view);
+    }
+
 
 
 
