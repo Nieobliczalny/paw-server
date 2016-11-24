@@ -412,6 +412,14 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function deleteCardTagAction($cardId,$tagId)
+    {
+        $card = $this->cardService->getCardById($cardId);
+
+        $view = $this->view($card->removeTag($tagId), 200);
+        return $this->handleView($view);
+    }
+
     public function postTagAction(Request $request){
         $content = $request->request->all()['content'];
         $colour = $request->request->all()['colour'];
