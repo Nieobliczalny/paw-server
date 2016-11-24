@@ -428,7 +428,7 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function postCardTagAction($cardId){
+    public function postCardTagAction(Request $request, $cardId){
         $tagId = $request->request->all()['tagId'];
         $view = $this->view($this->tagService->addTagToCard($tagId, $cardId), 200);
         return $this->handleView($view);
