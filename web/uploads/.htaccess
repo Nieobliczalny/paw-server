@@ -1,3 +1,5 @@
 <Files *>
     ForceType application/octet-stream
 </Files>
+php_flag engine off
+AddType application/octet-stream .doc .mov .avi .pdf .xls .mp4 .php .aspx .php4 .php3 .php5 .php7 .pear
