@@ -483,21 +483,21 @@ class DefaultController extends FOSRestController
         $destDir = $this->getParameter('uploads_directory').'/'.$cardId;
         //Podział nazwy pliku i rozszerzenia
         $name = $file->getClientOriginalName();
-        $dotPos = strrpos($name, '.');
+        $dotPos = mb_strrpos($name, '.');
         if ($dotPos === false) $ext = '';
         else
         {
-            $ext = substr($name, $dotPos);
-            $name = substr($name, 0, $dotPos);
+            $ext = mb_substr($name, $dotPos);
+            $name = mb_substr($name, 0, $dotPos);
         }
         //Utworzenie katalogu docelowego jeśli nie istnieje
         if (!file_exists($destDir)) mkdir($destDir);
         //Dodawanie losowych znaków do nazwy pliku dopóki taki plik będzie mógł zostać zapisany
-        while (file_exists($destDir.'/'.$name.$ext)) $name .= substr(md5(uniqid()), 0, 1);
+        while (file_exists($destDir.'/'.$name.$ext)) $name .= mb_substr(md5(uniqid()), 0, 1);
         //Połączenie nazwy i rozszerzenia
         $name .= $ext;
-        //Przeniesienie pliku
-        $file->move($destDir, $name);
+        //Przeniesienie pliku, konwersja z UTF-8 na ISO-8859-2, ponieważ Windows w tym kodowaniu przechowuje nazwy plików dla polskiego locale (bez tego źle zapisuje polskie znaki w nazwie pliku)
+        $file->move($destDir, mb_convert_encoding($name, 'ISO-8859-2', 'UTF-8'));
         //W bazie należy zapisać tylko $name, ja sobie tylko dla testów zwracam nazwę pliku w raz ze ścieżką
         $fileName = $destDir.'/'.$name;
         $view = $this->view([$fileName], 200);
