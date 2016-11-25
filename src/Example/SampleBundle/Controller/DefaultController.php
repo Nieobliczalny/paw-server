@@ -470,6 +470,46 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function getCardAttachmentAction($cardId)
+    {
+        $view = $this->view(['test'], 200);
+        return $this->handleView($view);
+    }
+
+    public function postCardAttachmentAction(Request $request, $cardId){
+        //Pobieram plik
+        $file = $request->files->get('file');
+        //Folder docelowy
+        $destDir = $this->getParameter('uploads_directory').'/'.$cardId;
+        //Podział nazwy pliku i rozszerzenia
+        $name = $file->getClientOriginalName();
+        $dotPos = strrpos($name, '.');
+        if ($dotPos === false) $ext = '';
+        else
+        {
+            $ext = substr($name, $dotPos);
+            $name = substr($name, 0, $dotPos);
+        }
+        //Utworzenie katalogu docelowego jeśli nie istnieje
+        if (!file_exists($destDir)) mkdir($destDir);
+        //Dodawanie losowych znaków do nazwy pliku dopóki taki plik będzie mógł zostać zapisany
+        while (file_exists($destDir.'/'.$name.$ext)) $name .= substr(md5(uniqid()), 0, 1);
+        //Połączenie nazwy i rozszerzenia
+        $name .= $ext;
+        //Przeniesienie pliku
+        $file->move($destDir, $name);
+        //W bazie należy zapisać tylko $name, ja sobie tylko dla testów zwracam nazwę pliku w raz ze ścieżką
+        $fileName = $destDir.'/'.$name;
+        $view = $this->view([$fileName], 200);
+        return $this->handleView($view);
+    }
+	
+    public function deleteCardAttachmentAction($cardId, $attachmentId)
+    {
+        $view = $this->view(['test'], 200);
+        return $this->handleView($view);
+    }
+
     public function getBoardTagsAction($boardId)
     {
         $view = $this->view($this->tagService->getTagsByBoard($boardId), 200);
