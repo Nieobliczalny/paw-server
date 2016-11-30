@@ -59,14 +59,14 @@ class TeamDAO
     }
     public function addUserToTeam($teamId, $user){
         $Team = $this->getTeamById($teamId);
-        $Team->addUser($user);
+        $user->setTeam($Team);
         $this->entityManager->flush();
         return $Team;
 
     }
     public function removeUserFromTeam($teamId, $user){
         $Team = $this->getTeamById($teamId);
-        $Team->removeUser($user);
+        $user->setTeam(null);
         $this->entityManager->flush();
         return $Team;
     }
@@ -74,7 +74,9 @@ class TeamDAO
     public function addBoardToTeam($teamId, $board)
     {
         $Team = $this->getTeamById($teamId);
-        $Team->addBoard($board);
+        $board->setTeam($Team);
+        //$Team->addBoard($board);
+        //$this->entityManager->persist($Team);
         $this->entityManager->flush();
         return $Team;
 
@@ -82,7 +84,7 @@ class TeamDAO
     public function removeBoardFromTeam($teamId, $board)
     {
         $Team = $this->getTeamById($teamId);
-        $Team->removeBoard($board);
+        $board->setTeam(null);
         $this->entityManager->flush();
         return $Team;
     }

@@ -562,6 +562,18 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function postTeamAction($name)
+    {
+        $view = $this->view($this->teamService->addTeam($name),200);
+        return $this->handleView($view);
+    }
+
+
+    public function getTeamAction($id)
+    {
+        $view = $this->view($this->teamService->getTeamById($id),200);
+        return $this->handleView($view);
+    }
 
     public function deleteTeamAction($id)
     {
@@ -592,7 +604,7 @@ class DefaultController extends FOSRestController
     }
     public function deleteTeamsBoardAction($teamId, $boardId)
     {
-        $view = $this->view($this->TeamDAO->removeBoardFromTeam($teamId, $boardId),200);
+        $view = $this->view($this->teamService->removeBoardFromTeam($teamId, $boardId),200);
         return $this->handleView($view);
     }
     

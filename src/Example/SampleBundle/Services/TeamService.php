@@ -29,7 +29,7 @@ class TeamService
     }
     public function getTeamById($id)
     {
-        return $this->TeamDAO->getTeam($id);
+        return $this->TeamDAO->getTeamById($id);
     }
     public function addTeam($name)
     {
