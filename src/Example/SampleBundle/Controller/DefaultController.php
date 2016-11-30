@@ -24,6 +24,7 @@ class DefaultController extends FOSRestController
     protected $commentService;
     protected $tagService;    
     protected $entryService;
+    protected $teamService;
 
 
     public function __construct()
@@ -42,7 +43,8 @@ class DefaultController extends FOSRestController
         $this->likeService = $container->get('example.sample.likeservice');
         $this->commentService = $container->get('example.sample.commentservice');
         $this->tagService = $container->get('example.sample.tagservice');
-        $this->entryService = $container->get('example.sample.entryservice');        
+        $this->entryService = $container->get('example.sample.entryservice');
+        $this->teamService = $container->get('example.sample.teamservice');
 
     }
 
@@ -559,6 +561,36 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
+
+    public function deleteTeamAction($id)
+    {
+        $view = $this->view($this->teamService->deleteTeam($id),200);
+        return $this->handleView($view);
+    }
+    public function updateTeamName($id, $name)
+    {
+        $view = $this->view($this->teamService->updateTeamName($id,$name),200);
+        return $this->handleView($view);
+    }
+    public function addUserToTeam($teamId, $userId){
+        $view = $this->view( $this->teamService->addUserToTeam($teamId, $userId),200);
+        return $this->handleView($view);
+    }
+    public function removeUserFromTeam($teamId, $userId){
+        $view = $this->view($this->teamService->removeUserFromTeam($teamId, $userId),200);
+        return $this->handleView($view);
+
+    }
+    public function addBoardToTeam($teamId, $boardId)
+    {
+        $view = $this->view($this->teamService->addBoardToTeam($teamId, $boardId),200);
+        return $this->handleView($view);
+    }
+    public function removeBoardFromTeam($teamId, $boardId)
+    {
+        $view = $this->view($this->TeamDAO->removeBoardFromTeam($teamId, $boardId),200);
+        return $this->handleView($view);
+    }
     
 
 

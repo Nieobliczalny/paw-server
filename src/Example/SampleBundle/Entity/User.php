@@ -45,6 +45,10 @@ class User
     protected $team;
 
     /**
+     * @ORM\ManyToMany(targetEntity ="Team", mappedBy="users")
+     */
+    protected $boards;
+    /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="user", cascade={"remove"})
      */
     protected $comments;
@@ -183,14 +187,6 @@ class User
     {
         return $this->login;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add comment
@@ -259,4 +255,48 @@ class User
     {
         return $this->likes;
     }
+
+    /**
+     * Add board
+     *
+     * @param \Example\SampleBundle\Entity\Team $board
+     *
+     * @return User
+     */
+    public function addBoard(\Example\SampleBundle\Entity\Team $board)
+    {
+        $this->boards[] = $board;
+    
+        return $this;
+    }
+
+    /**
+     * Remove board
+     *
+     * @param \Example\SampleBundle\Entity\Team $board
+     */
+    public function removeBoard(\Example\SampleBundle\Entity\Team $board)
+    {
+        $this->boards->removeElement($board);
+    }
+
+    /**
+     * Get boards
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBoards()
+    {
+        return $this->boards;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->boards = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

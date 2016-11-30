@@ -47,6 +47,12 @@ class Board
     protected $team;
 
     /**
+     * @ORM\ManyToMany(targetEntity ="User", mappedBy="boards")
+     * @ORM\JoinTable(name="user_boards")
+     */
+    protected $users;
+
+    /**
      * @ORM\OneToMany(targetEntity="Entry", mappedBy="board", cascade={"remove"})
      */
     protected $entries;
@@ -63,16 +69,6 @@ class Board
     
 
     
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cardList = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -315,5 +311,50 @@ class Board
     public function getEntries()
     {
         return $this->entries;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cardList = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add user
+     *
+     * @param \Example\SampleBundle\Entity\User $user
+     *
+     * @return Board
+     */
+    public function addUser(\Example\SampleBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \Example\SampleBundle\Entity\User $user
+     */
+    public function removeUser(\Example\SampleBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }
