@@ -567,12 +567,14 @@ class DefaultController extends FOSRestController
         $view = $this->view($this->teamService->deleteTeam($id),200);
         return $this->handleView($view);
     }
-    public function putTeamAction($id, $name)
+    public function putTeamAction($id,  Request $request)
     {
+        $name = $request->request->all()['name'];
         $view = $this->view($this->teamService->updateTeamName($id,$name),200);
         return $this->handleView($view);
     }
-    public function postTeamsUserAction($teamId, $userId){
+    public function postTeamsUserAction($teamId, Request $request){
+        $userId = $request->request->all()['userId'];
         $view = $this->view( $this->teamService->addUserToTeam($teamId, $userId),200);
         return $this->handleView($view);
     }
@@ -581,8 +583,9 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
 
     }
-    public function postTeamsBoardAction($teamId, $boardId)
+    public function postTeamsBoardAction($teamId, Request $request)
     {
+        $boardId = $request->request->all()['boardId'];
         $view = $this->view($this->teamService->addBoardToTeam($teamId, $boardId),200);
         return $this->handleView($view);
     }
