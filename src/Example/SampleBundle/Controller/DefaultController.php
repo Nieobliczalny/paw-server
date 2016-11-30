@@ -567,26 +567,26 @@ class DefaultController extends FOSRestController
         $view = $this->view($this->teamService->deleteTeam($id),200);
         return $this->handleView($view);
     }
-    public function updateTeamName($id, $name)
+    public function putTeamAction($id, $name)
     {
         $view = $this->view($this->teamService->updateTeamName($id,$name),200);
         return $this->handleView($view);
     }
-    public function addUserToTeam($teamId, $userId){
+    public function postTeamsUserAction($teamId, $userId){
         $view = $this->view( $this->teamService->addUserToTeam($teamId, $userId),200);
         return $this->handleView($view);
     }
-    public function removeUserFromTeam($teamId, $userId){
+    public function deleteTeamsUserAction($teamId, $userId){
         $view = $this->view($this->teamService->removeUserFromTeam($teamId, $userId),200);
         return $this->handleView($view);
 
     }
-    public function addBoardToTeam($teamId, $boardId)
+    public function postTeamsBoardAction($teamId, $boardId)
     {
         $view = $this->view($this->teamService->addBoardToTeam($teamId, $boardId),200);
         return $this->handleView($view);
     }
-    public function removeBoardFromTeam($teamId, $boardId)
+    public function deleteTeamsBoardAction($teamId, $boardId)
     {
         $view = $this->view($this->TeamDAO->removeBoardFromTeam($teamId, $boardId),200);
         return $this->handleView($view);
