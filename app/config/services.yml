@@ -31,3 +31,6 @@ services:
     example.sample.entryservice:
         class: Example\SampleBundle\Services\EntryService
         arguments: ["@doctrine.orm.entity_manager", "@example.sample.boardservice"]
+    example.sample.teamservice:
+        class: Example\SampleBundle\Services\TeamService
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.boardservice" , "@example.sample.userservice"]

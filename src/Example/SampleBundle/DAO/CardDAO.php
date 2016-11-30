@@ -28,7 +28,7 @@ class CardDAO
         $this->entityManager->flush();
         return $card;
     }
-    public function updateCard($id, $name, $archived,$description, $cardList_id, $position)
+    public function updateCard($id, $name, $archived,$description, $cardList_id, $position, $date)
     {
         $card = $this->getCard($id);
         if($name != '') $card->setName($name);
@@ -46,6 +46,11 @@ class CardDAO
 			$card->getCardList()->getCards()->map(function($p) use($position, $card){ if ($p->getPosition() >= $position && $p->getId() != $card->getId()) $p->setPosition($p->getPosition() + 1); return $p; });
 			$card->setPosition($position);
 		}
+        if($date != '')
+            $card->setDate($date);
+        else
+            $card->setDate(null);
+
         $this->entityManager->flush();
         return $card;
     }

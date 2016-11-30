@@ -53,6 +53,11 @@ class Card
     protected $position;
 
     /**
+     * @ORM\Column(type="date")
+     */
+    protected $date;
+
+    /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="card", cascade={"remove"})
      */
     protected $comments;
@@ -304,5 +309,29 @@ class Card
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Card
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

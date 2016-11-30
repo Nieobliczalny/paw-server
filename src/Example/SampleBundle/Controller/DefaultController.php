@@ -190,8 +190,9 @@ class DefaultController extends FOSRestController
         $description = $this->checkIfPropertyExists($requestData, 'description') ? $requestData['description'] : '';
         $cardList_id = $this->checkIfPropertyExists($requestData, 'cardList_id') ? $this->cardListService->getCardListById($requestData['cardList_id']) : '';
         $position = $this->checkIfPropertyExists($requestData, 'position') ? $requestData['position'] : '';
+        $date = $this->checkIfPropertyExists($requestData, 'date') ? $requestData['date'] : '';
 
-        $view = $this->view($this->cardService->updateCard($id, $name, $archived, $description, $cardList_id, $position),200);
+        $view = $this->view($this->cardService->updateCard($id, $name, $archived, $description, $cardList_id, $position, $date),200);
         $content = "Modyfied card ".$cardOldName." in list ".$listName." in board ".$boardName;
         $this->entryService->addEntry($content,$board);
         return $this->handleView($view);
