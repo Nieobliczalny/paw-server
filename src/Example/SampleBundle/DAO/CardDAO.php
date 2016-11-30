@@ -46,9 +46,9 @@ class CardDAO
 			$card->getCardList()->getCards()->map(function($p) use($position, $card){ if ($p->getPosition() >= $position && $p->getId() != $card->getId()) $p->setPosition($p->getPosition() + 1); return $p; });
 			$card->setPosition($position);
 		}
-        if($date != '')
+        if ($date != '' && $date != 'null')
             $card->setDate($date);
-        else
+        else if ($date != '')
             $card->setDate(null);
 
         $this->entityManager->flush();
