@@ -31,4 +31,62 @@ class Attachment
      */
     protected $card;
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Attachment
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set card
+     *
+     * @param \Example\SampleBundle\Entity\Card $card
+     *
+     * @return Attachment
+     */
+    public function setCard(\Example\SampleBundle\Entity\Card $card = null)
+    {
+        $this->card = $card;
+    
+        return $this;
+    }
+
+    /**
+     * Get card
+     *
+     * @return \Example\SampleBundle\Entity\Card
+     */
+    public function getCard()
+    {
+        return $this->card;
+    }
 }
