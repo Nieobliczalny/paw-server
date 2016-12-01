@@ -475,7 +475,8 @@ class DefaultController extends FOSRestController
 
     public function getCardAttachmentAction($cardId)
     {
-        $view = $this->view(['test'], 200);
+		$card = $this->cardService->getCardById($cardId);
+        $view = $this->view($card->getAttachments(), 200);
         return $this->handleView($view);
     }
 
@@ -503,13 +504,16 @@ class DefaultController extends FOSRestController
         $file->move($destDir, mb_convert_encoding($name, 'ISO-8859-2', 'UTF-8'));
         //W bazie należy zapisać tylko $name, ja sobie tylko dla testów zwracam nazwę pliku w raz ze ścieżką
         $fileName = $destDir.'/'.$name;
-        $view = $this->view([$fileName], 200);
+		$attachment = $this->cardService->addAttachmentToCard($cardId, $name);
+        $view = $this->view($attachment, 200);
         return $this->handleView($view);
     }
 	
     public function deleteCardAttachmentAction($cardId, $attachmentId)
     {
-        $view = $this->view(['test'], 200);
+		$attachment = $this->attachmentService->deleteAttachmentById($attachmentId);
+		@unlink($this->getParameter('uploads_directory').'/'.$cardId.'/'.$attachment->getPath());
+        $view = $this->view($attachment, 200);
         return $this->handleView($view);
     }
 
