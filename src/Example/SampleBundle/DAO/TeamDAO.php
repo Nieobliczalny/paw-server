@@ -58,30 +58,29 @@ class TeamDAO
         return $Team;
     }
     public function addUserToTeam($teamId, $user){
-        $Team = $this->getTeamById($teamId);
-        $Team->addUser($user);
+        $team = $this->getTeamById($teamId);
+        $team->addUser($user);
         $this->entityManager->flush();
-        return $Team;
-
+        return $team;
     }
     public function removeUserFromTeam($teamId, $user){
-        $Team = $this->getTeamById($teamId);
-        $Team->removeUser($user);
+        $team = $this->getTeamById($teamId);
+        $team->removeUser($user);
         $this->entityManager->flush();
-        return $Team;
+        return $team;
     }
 
     public function addBoardToTeam($teamId, $board)
     {
-        $Team = $this->getTeamById($teamId);
-        $Team->addBoard($board);
+        $team = $this->getTeamById($teamId);
+        $team->addBoard($board);
         $this->entityManager->flush();
-        return $Team;
+        return $team;
 
     }
     public function removeBoardFromTeam($teamId, $board)
     {
-        $Team = $this->getTeamById($teamId);
+        $team = $this->getTeamById($teamId);
         $Team->removeBoard($board);
         $this->entityManager->flush();
         return $Team;

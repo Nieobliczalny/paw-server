@@ -67,16 +67,10 @@ class Card
      */
     protected $tags;
 
-
     /**
-     * Constructor
+     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="card")
      */
-    public function __construct()
-    {
-        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    protected $attachments;
 
     /**
      * Get id
@@ -334,4 +328,49 @@ class Card
     {
         return $this->date;
     }
+
+    /**
+     * Add attachment
+     *
+     * @param \Example\SampleBundle\Entity\Attachment $attachment
+     *
+     * @return Card
+     */
+    public function addAttachment(\Example\SampleBundle\Entity\Attachment $attachment)
+    {
+        $this->attachments[] = $attachment;
+    
+        return $this;
+    }
+
+    /**
+     * Remove attachment
+     *
+     * @param \Example\SampleBundle\Entity\Attachment $attachment
+     */
+    public function removeAttachment(\Example\SampleBundle\Entity\Attachment $attachment)
+    {
+        $this->attachments->removeElement($attachment);
+    }
+
+    /**
+     * Get attachments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

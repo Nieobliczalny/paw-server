@@ -51,6 +51,8 @@ class CardDAO
         else if ($date != '')
             $card->setDate(null);
 
+
+
         $this->entityManager->flush();
         return $card;
     }

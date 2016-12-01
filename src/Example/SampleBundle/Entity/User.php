@@ -45,7 +45,7 @@ class User
     protected $team;
 
     /**
-     * @ORM\ManyToMany(targetEntity ="Team", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity ="Board", mappedBy="users")
      */
     protected $boards;
     /**
