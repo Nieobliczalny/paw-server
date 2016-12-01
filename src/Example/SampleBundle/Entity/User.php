@@ -270,16 +270,7 @@ class User
      * Constructor
      */
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->team = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->boards = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    
 
     /**
      * Add team
@@ -314,4 +305,15 @@ class User
     {
         return $this->team;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->team = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->boards = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

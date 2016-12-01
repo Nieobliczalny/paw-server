@@ -73,6 +73,11 @@ class Card
     protected $attachments;
 
     /**
+     * @ORM\ManyToMany(targetEntity="User")
+     */
+    protected $subscription;
+
+    /**
      * Get id
      *
      * @return integer
@@ -362,6 +367,8 @@ class Card
     {
         return $this->attachments;
     }
+    
+
     /**
      * Constructor
      */
@@ -371,6 +378,40 @@ class Card
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->subscription = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * Add subscription
+     *
+     * @param \Example\SampleBundle\Entity\User $subscription
+     *
+     * @return Card
+     */
+    public function addSubscription(\Example\SampleBundle\Entity\User $subscription)
+    {
+        $this->subscription[] = $subscription;
+    
+        return $this;
+    }
+
+    /**
+     * Remove subscription
+     *
+     * @param \Example\SampleBundle\Entity\User $subscription
+     */
+    public function removeSubscription(\Example\SampleBundle\Entity\User $subscription)
+    {
+        $this->subscription->removeElement($subscription);
+    }
+
+    /**
+     * Get subscription
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubscription()
+    {
+        return $this->subscription;
+    }
 }

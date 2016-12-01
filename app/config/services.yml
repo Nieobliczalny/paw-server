@@ -37,3 +37,6 @@ services:
     example.sample.attachmentservice:
         class: Example\SampleBundle\Services\AttachmentService
         arguments: ["@doctrine.orm.entity_manager"]
+    example.sample.subscriptionservice:
+        class: Example\SampleBundle\Services\SubscriptionService
+        arguments: ["@doctrine.orm.entity_manager"]

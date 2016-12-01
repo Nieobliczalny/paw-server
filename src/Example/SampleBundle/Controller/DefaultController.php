@@ -26,6 +26,7 @@ class DefaultController extends FOSRestController
     protected $entryService;
     protected $teamService;
     protected $attachmentService;
+    protected $subscriptionService;
 
     public function __construct()
     {
@@ -46,6 +47,7 @@ class DefaultController extends FOSRestController
         $this->entryService = $container->get('example.sample.entryservice');
         $this->teamService = $container->get('example.sample.teamservice');
         $this->attachmentService = $container->get('example.sample.attachmentservice');
+        $this->subscriptionService = $container->get('example.sample.subsctiptionservice');
     }
 
     public function getBoardAction($id)
@@ -652,6 +654,23 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
     
+    public function postSubscriptionAction($cardId)
+    {
+        $session = new Session();		
+		$data = [];
+		$status = 200;
+		$userID = trim($session->get('UserID'));
+		if ($userID != '')
+		{            
+            $data = $this->cardService->addUserToCard($userID, $cardId);			
+		}
+		else
+		{
+			$status = 404;
+		}
+		$view = $this->view($data,$status);
+		return $this->handleView($view);
+    }
 
 
 

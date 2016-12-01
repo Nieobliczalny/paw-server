@@ -10,6 +10,7 @@ namespace Example\SampleBundle\Services;
 
 
 use Example\SampleBundle\DAO\CardDAO;
+use Example\SampleBundle\DAO\UserDAO;
 use Doctrine\ORM\EntityManager;
 use Example\SampleBundle\Entity\Attachment;
 use Example\SampleBundle\Entity\Card;
@@ -21,12 +22,13 @@ class CardService
     protected $em;
     protected $cardListService;
     protected $attachmentService;
-    public function __construct(EntityManager $entityManager, CardListService $cardListService, AttachmentService $attachmentService)
+    public function __construct(EntityManager $entityManager, CardListService $cardListService, AttachmentService $attachmentService, UserService $userService)
     {
         $this->em = $entityManager;
         $this->cardDAO = new CardDAO($this->em);
         $this->cardListService = $cardListService;
         $this->attachmentService =$attachmentService;
+        $this->userService = $userService;
     }
     public function getCardById($id)
     {
@@ -57,5 +59,11 @@ class CardService
     public function deleteTagFromCard($cardId, $tag)
     {
         return $this->cardDAO->deleteTagFromCard($cardId, $tag);
+    }
+    public function addUserToCard($userId, $cardId){
+        $card = $this->cardDAO->getCard($cardId);
+        $user = $this->userDAO->getUserById($userId);
+        $card->addSubscription($user);
+        $this->em->flush();
     }
 }
