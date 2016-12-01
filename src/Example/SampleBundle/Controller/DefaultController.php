@@ -26,8 +26,7 @@ class DefaultController extends FOSRestController
     protected $entryService;
     protected $teamService;
     protected $attachmentService;
-    protected $subscriptionService;
-
+    
     public function __construct()
     {
         //$date = date('m/d/Y h:i:s a', time());
@@ -47,7 +46,7 @@ class DefaultController extends FOSRestController
         $this->entryService = $container->get('example.sample.entryservice');
         $this->teamService = $container->get('example.sample.teamservice');
         $this->attachmentService = $container->get('example.sample.attachmentservice');
-        $this->subscriptionService = $container->get('example.sample.subsctiptionservice');
+        
     }
 
     public function getBoardAction($id)

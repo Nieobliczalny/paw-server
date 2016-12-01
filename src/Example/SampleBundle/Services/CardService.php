@@ -22,6 +22,7 @@ class CardService
     protected $em;
     protected $cardListService;
     protected $attachmentService;
+    protected $userService;
     public function __construct(EntityManager $entityManager, CardListService $cardListService, AttachmentService $attachmentService, UserService $userService)
     {
         $this->em = $entityManager;
@@ -65,5 +66,6 @@ class CardService
         $user = $this->userDAO->getUserById($userId);
         $card->addSubscription($user);
         $this->em->flush();
+        return $card;
     }
 }

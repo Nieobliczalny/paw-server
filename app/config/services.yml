@@ -12,7 +12,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager", "@example.sample.boardservice"]
     example.sample.cardservice:
         class: Example\SampleBundle\Services\CardService
-        arguments: ["@doctrine.orm.entity_manager", "@example.sample.cardlistservice", "@example.sample.attachmentservice"]
+        arguments: ["@doctrine.orm.entity_manager", "@example.sample.cardlistservice", "@example.sample.attachmentservice","@example.sample.userservice"]
     example.sample.taskservice:
         class: Example\SampleBundle\Services\TaskService
         arguments: ["@doctrine.orm.entity_manager", "@example.sample.cardservice"]
@@ -37,6 +37,4 @@ services:
     example.sample.attachmentservice:
         class: Example\SampleBundle\Services\AttachmentService
         arguments: ["@doctrine.orm.entity_manager"]
-    example.sample.subscriptionservice:
-        class: Example\SampleBundle\Services\SubscriptionService
-        arguments: ["@doctrine.orm.entity_manager"]
+    
