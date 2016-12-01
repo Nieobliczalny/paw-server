@@ -571,8 +571,9 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function postTeamAction($name)
+    public function postTeamAction(Request $request)
     {
+        $name = $request->request->all()['name'];
         $view = $this->view($this->teamService->addTeam($name),200);
         return $this->handleView($view);
     }
