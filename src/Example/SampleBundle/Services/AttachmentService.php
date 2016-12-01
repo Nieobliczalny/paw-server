@@ -18,11 +18,9 @@ class AttachmentService
         $this->AttachmentDAO = new AttachmentDAO($this->em);
     }
 
-    public function addAttachment($path)
-    {        
-        $Attachment = new Attachment();
-        $Attachment->setPath($path);
-        return $this->AttachmentDAO->addAttachment($Attachment);
+    public function addAttachment($attachment)
+    {
+        return $this->AttachmentDAO->addAttachment($attachment);
     }
 
     public function deleteAttachmentById($attachmentId){
