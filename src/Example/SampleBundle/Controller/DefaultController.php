@@ -603,7 +603,7 @@ class DefaultController extends FOSRestController
 		$status = 500;
 		if ($userID != '')
 		{
-			$this->userService->getUserById($userID)->getTeam()
+			$data = $this->userService->getUserById($userID)->getTeam();
 			$status = 200;
 		}
 		else
