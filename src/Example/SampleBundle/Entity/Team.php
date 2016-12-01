@@ -26,7 +26,8 @@ class Team
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="team")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="team")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $users;
 

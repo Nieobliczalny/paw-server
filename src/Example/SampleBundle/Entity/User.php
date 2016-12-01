@@ -39,8 +39,8 @@ class User
     protected $email;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Team", inversedBy="users")
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="Team", mappedBy="users")
+     
      */
     protected $team;
 

@@ -47,7 +47,7 @@ class Board
     protected $team;
 
     /**
-     * @ORM\ManyToMany(targetEntity ="User", mappedBy="boards")
+     * @ORM\ManyToMany(targetEntity ="User", inversedBy="boards")
      * @ORM\JoinTable(name="user_boards")
      */
     protected $users;
