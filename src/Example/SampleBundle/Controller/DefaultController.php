@@ -577,8 +577,22 @@ class DefaultController extends FOSRestController
 
     public function postTeamAction(Request $request)
     {
+		$session = new Session();
         $name = $request->request->all()['name'];
-        $view = $this->view($this->teamService->addTeam($name),200);
+		$data = [];
+		$userID = trim($session->get('UserID'));
+		$status = 500;
+		if ($userID != '')
+		{
+			$data = $this->teamService->addTeam($name);
+			$this->teamService->addUserToTeam($data->getId(), $userID);
+			$status = 200;
+		}
+		else
+		{
+			$status = 404;
+		}
+        $view = $this->view($data,$status);
         return $this->handleView($view);
     }
 
