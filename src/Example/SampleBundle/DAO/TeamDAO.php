@@ -66,7 +66,7 @@ class TeamDAO
     }
     public function removeUserFromTeam($teamId, $user){
         $Team = $this->getTeamById($teamId);
-        $user->setTeam(null);
+        $user->removeTeam($Team);
         $this->entityManager->flush();
         return $Team;
     }
