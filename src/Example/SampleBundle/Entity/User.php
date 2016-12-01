@@ -5,6 +5,7 @@ namespace Example\SampleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
  /**
   * @ORM\Entity
   * @ORM\Table(name="user")
@@ -141,30 +142,6 @@ class User
     }
 
     /**
-     * Set team
-     *
-     * @param \Example\SampleBundle\Entity\Team $team
-     *
-     * @return User
-     */
-    public function setTeam(\Example\SampleBundle\Entity\Team $team = null)
-    {
-        $this->team = $team;
-    
-        return $this;
-    }
-
-    /**
-     * Get team
-     *
-     * @return \Example\SampleBundle\Entity\Team
-     */
-    public function getTeam()
-    {
-        return $this->team;
-    }
-
-    /**
      * Set login
      *
      * @param string $login
@@ -292,11 +269,49 @@ class User
     /**
      * Constructor
      */
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
+        $this->team = new \Doctrine\Common\Collections\ArrayCollection();
         $this->boards = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * Add team
+     *
+     * @param \Example\SampleBundle\Entity\Team $team
+     *
+     * @return User
+     */
+    public function addTeam(\Example\SampleBundle\Entity\Team $team)
+    {
+        $this->team[] = $team;
+    
+        return $this;
+    }
+
+    /**
+     * Remove team
+     *
+     * @param \Example\SampleBundle\Entity\Team $team
+     */
+    public function removeTeam(\Example\SampleBundle\Entity\Team $team)
+    {
+        $this->team->removeElement($team);
+    }
+
+    /**
+     * Get team
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeam()
+    {
+        return $this->team;
+    }
 }

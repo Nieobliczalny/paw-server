@@ -59,7 +59,7 @@ class TeamDAO
     }
     public function addUserToTeam($teamId, $user){
         $Team = $this->getTeamById($teamId);
-        $user->setTeam($Team);
+        $user->addTeam($Team);
         $this->entityManager->flush();
         return $Team;
 
