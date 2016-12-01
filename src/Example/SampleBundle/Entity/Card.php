@@ -53,7 +53,7 @@ class Card
     protected $position;
 
     /**
-     * @ORM\Column(type="date",nullable=true)
+     * @ORM\Column(type="string",nullable=true)
      */
     protected $date;
 
