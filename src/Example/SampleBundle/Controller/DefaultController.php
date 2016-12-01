@@ -582,7 +582,10 @@ class DefaultController extends FOSRestController
         return $this->handleView($view);
     }
 
-
+    public function getUserTeamsAction($id){
+        $view = $this->view($this->userService->getUserById($id)->getTeam(),200);
+        return $this->handleView($view);
+    }
     public function getTeamAction($id)
     {
         $view = $this->view($this->teamService->getTeamById($id),200);
