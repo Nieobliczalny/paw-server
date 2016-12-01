@@ -26,9 +26,8 @@ class AttachmentDAO
         return $attachment;
     }
 
-    public function deleteAttachment($id)
+    public function deleteAttachment($attachment)
     {
-        $attachment = $this->getAttachmentById($id);
         $this->entityManager->remove($attachment);
         $this->entityManager->flush();
         return $attachment;

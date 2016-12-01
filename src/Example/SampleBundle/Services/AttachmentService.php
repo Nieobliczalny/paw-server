@@ -24,6 +24,7 @@ class AttachmentService
     }
 
     public function deleteAttachmentById($attachmentId){
-        return $this->AttachmentDAO->deleteAttachment($attachmentId);
+        $attachment = $this->AttachmentDAO->getAttachmentById($attachmentId);
+        return $this->AttachmentDAO->deleteAttachment($attachment);
     } 
 }
