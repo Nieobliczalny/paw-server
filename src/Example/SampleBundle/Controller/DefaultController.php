@@ -25,7 +25,7 @@ class DefaultController extends FOSRestController
     protected $tagService;    
     protected $entryService;
     protected $teamService;
-
+    protected $attachmentService;
 
     public function __construct()
     {
@@ -45,7 +45,7 @@ class DefaultController extends FOSRestController
         $this->tagService = $container->get('example.sample.tagservice');
         $this->entryService = $container->get('example.sample.entryservice');
         $this->teamService = $container->get('example.sample.teamservice');
-
+        $this->attachmentService = $container->get('example.sample.attachmentservice');
     }
 
     public function getBoardAction($id)

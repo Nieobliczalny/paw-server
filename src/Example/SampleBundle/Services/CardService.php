@@ -11,6 +11,7 @@ namespace Example\SampleBundle\Services;
 
 use Example\SampleBundle\DAO\CardDAO;
 use Doctrine\ORM\EntityManager;
+use Example\SampleBundle\Entity\Attachment;
 use Example\SampleBundle\Entity\Card;
 
 
@@ -19,12 +20,13 @@ class CardService
     protected $cardDAO;
     protected $em;
     protected $cardListService;
-    public function __construct(EntityManager $entityManager, CardListService $cardListService)
+    protected $attachmentService;
+    public function __construct(EntityManager $entityManager, CardListService $cardListService, AttachmentService $attachmentService)
     {
         $this->em = $entityManager;
         $this->cardDAO = new CardDAO($this->em);
         $this->cardListService = $cardListService;
-
+        $this->attachmentService =$attachmentService;
     }
     public function getCardById($id)
     {
@@ -36,6 +38,13 @@ class CardService
         $cardList = new Card();
         $cardList->setName($name)->setCardList($board)->setArchived(false)->setDescription($description)->setPosition($board->getCards()->count());
         return $this->cardDAO->addCard($cardList);
+    }
+    public function addAttachmentToCard($cardId, $pathToAttachment){
+        $attachment = new Attachment();
+        $card = $this->cardDAO->getCard($cardId);
+        $attachment->setPath($pathToAttachment);
+        $attachment->setCard($card);
+        return $this->attachmentService->addAttachment($attachment);
     }
     public function updateCard($id, $name, $archived,$description, $cardList_id, $position, $date)
     {
